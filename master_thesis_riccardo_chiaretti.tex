@@ -451,7 +451,7 @@ The most common JIT-based DBI frameworks are: Valgrind\cite{nethercote2007valgri
 \subsection{Intel Pin}
 Intel Pin is a dynamic binary instrumentation tool available on all the major operating systems and supporting executables compliant to the IA-32 and IA-64 architectures. The goal of Pin is to provide an instrumentation framework through which developing a wide range of program analysis tools. The distinctive features of this framework are the following:
 \begin{itemize}
-\item \textit{Portability}. Pin APIs allow to access fine-grained information about the underlying architecture, abstracting away any low-level implementation;
+\item \textit{Portability}. Pin APIs allow to access fine-grained information about the underlying architecture, abstracting away any low-level implementation detail;
 \item \textit{Efficiency}. The framework implements several optimizations which set Pin apart from its competitors;
 \item \textit{Ease-of-use}. It automatically performs tasks like instruction inlining without requiring external actions (i.e., manual intervention from users);
 \item \textit{Transparency}. When running under Pin, the instrumented application has the same view on instructions, registers and memory as it would not be executed under Pin;
@@ -463,7 +463,7 @@ A DBI tool developed through Pin is called \textit{pintool}. According to its so
 \centering
 \includegraphics[scale=.7]{images/techn7}
 \caption{Software architecture of Pin DBI framework.}
-\source{Pin: Building Customized Program Analysis Tools with Dynamic Instrumentation.}
+\source{"Pin: Building Customized Program Analysis Tools with Dynamic Instrumentation."}
 \end{figure}
 \newpage
 
@@ -510,7 +510,7 @@ BluePill is designed on top of a DBI framework strengthening its robustness, ste
 \centering
 \includegraphics[scale=.6]{images/techn8}
 \caption{Bird's eye view of BluePill architecture.}
-\source{On the Dissection of Evasive Malware.}
+\source{"On the Dissection of Evasive Malware."}
 \end{figure}
 
 \subsubsection{Target Platform Simulation Layer}
