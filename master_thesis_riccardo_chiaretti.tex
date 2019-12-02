@@ -269,7 +269,7 @@ These are only the building blocks necessary to define information flow control 
 The biggest drawback of typing systems is that they require to extend the underlying language thus, introducing changes in the syntax and semantic as well as a different compiler. Nonetheless, there exist other approaches and techniques, different from type systems, which allow to enforce information flow on a program.
 
 \section{Taint Analysis}
-\label{ch:taintanalysis}
+\label{sec:taintanalysis}
 We can imagine to put ourselves in the shoes of an hydrologist, who is in front of a river's source and would like to track the route taken by the river and find where it emerges. The problem that afflicts the hydrologist is that the river flows underground, with only its source visible from the surface. With a stroke of genius the hydrologist solved the issue by adapting the dye tracing method: he coloured the river's water with a dye, which acts as flow tracer once added to water. Therefore, to understand the exact point where the river emerges, he simply has to look for places where the coloured water resurfaces.\\
 
 Similarly to the dye tracing method, \textit{taint analysis} is a technique to carry out information flow analysis. Instead of colouring river's water, we \textit{taint} the data of interest to understand the relationship between a program state and program location of interest\cite{Practicalbinaryanalysis}. Before proceeding in the description of the technique, we need to define what it means program state or location and also the way they can influence each other.\\
