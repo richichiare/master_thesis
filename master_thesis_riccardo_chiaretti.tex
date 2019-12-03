@@ -495,6 +495,7 @@ Despite automatic systems provide helpful indicators, a significant chunk of wor
 \item Precise control capabilities over malware execution;
 \item Extensibility to include new countermeasures to neutralise anti-analysis behaviours (e.g., found during dissection).
 \end{itemize}
+\newpage
 BluePill is capable of deceiving the malware to have infected the victim through the following schema:
 \begin{enumerate}
 \item It observes all kind of operations (e.g., fingerprinting) which may trigger anti-analysis techniques;
@@ -692,7 +693,7 @@ This chapter describes the two aforementioned components together with insight a
 
 \section{Dynamic Analysis Component}
 As already mentioned, in the first step the malware is analysed to get information on how it actually uses memory. This analysis cannot be static rather, it must be dynamic in order to have access to runtime information like memory addresses.\\
-Nonetheless, as discussed in \autoref{subsec:evasivemalware}, dynamically analysing a malware can be challenging especially when it adopts artifacts tailored for anti-dynamic and anti-sandbox analysis. for this reason, the malware sample is analysed under BluePill which offers neutralization techniques against these evasive behaviours.
+Nonetheless, as discussed in \autoref{subsec:evasivemalware}, dynamically analysing a malware can be challenging especially when it adopts artifacts tailored for anti-dynamic and anti-sandbox analysis. For this reason, the malware sample is analysed under BluePill which offers neutralization techniques against these evasive behaviours.
 
 \begin{figure}[h!]
 \centering
@@ -737,7 +738,7 @@ For enabling BluePill to start the dynamic taint analysis engine, it must be lau
 C:\pin35 > pin.exe -t bluepill.dll -taint -- 
 C:\Users\Riccardo\Documents\furtim_sample.exe
 \end{lstlisting}
-When the option is enabled, a call to \texttt{loadTaintLib()} is performed in order to initialize any data structure required by libdft to work and to switching-on its instrumentation engine. Referring to \autoref{subsec:memorymap} and remembering that DTA-Tracker works with byte-size tags, in the initialization step only the segment translation table and the stack shadow memory are allocated by libdft for the process.\\
+When the option is enabled, a call to \texttt{loadTaintLib()} is performed in order to initialize any data structure required by libdft to work and to switching-on its instrumentation engine. Referring to \autoref{subsubsec:memorymap} and remembering that DTA-Tracker works with byte-size tags, in the initialization step only the segment translation table and the stack shadow memory are allocated by libdft for the process.\\
 
 To give in input the target calls together with the correspondent colours, DTA-Tracker reads a text file named \texttt{colours.txt}. The file structure is quite simple: each line should contain just the hook id and the respective colour separated by a dash. By following this format, the analyst expresses the will to bind a color to the output of a specific call.\\
 
@@ -902,8 +903,8 @@ The \textit{producer-consumer paradigm} imprinted in DTA-Tracker, brings togethe
 \end{itemize}
 If consumers, producers and chunks define nodes of the graph, the relationships between nodes are introduced through two different kind of directed edges:
 \begin{itemize}
-\item The \textit{produces} edge connects the chunk and the consumer: \texttt{chunk\_1} $rightarrow$ \texttt{consumer\_X}. As the name says, it denotes that \texttt{chunk\_1}  is consumed by \texttt{consumer\_X};
-\item The \textit{consumes} edge goes from the producer to the chunk: \texttt{producer\_Y} $rightarrow$ \texttt{chunk\_1}. It defines that \texttt{chunk\_1} is produced by \texttt{producer\_Y}.
+\item The \textit{produces} edge connects the chunk and the consumer: \texttt{chunk\_1} $\rightarrow$ \texttt{consumer\_X}. As the name says, it denotes that \texttt{chunk\_1}  is consumed by \texttt{consumer\_X};
+\item The \textit{consumes} edge goes from the producer to the chunk: \texttt{producer\_Y} $\rightarrow$ \texttt{chunk\_1}. It defines that \texttt{chunk\_1} is produced by \texttt{producer\_Y}.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -932,7 +933,7 @@ In the first macro-phase DTA-Tracker records in the memory accesses file, inform
 Therefore, DTA-Tracker defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to Blue Pill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint the output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.\\
 While these addresses above are full-fledged chunks, it is also true that they are not the only ones identifiable during the whole program execution. The reason why they are not the only possible chunks, is due to data movement operations. One can think, for example, to a malware routine that just retrieves the data of interest and transfers them to another function which then completes the job. This scenario can, of course, be modeled differently depending both on the compiler and on the optimization level but, in most cases, it will involve more than one chunk.
 \newpage
-\begin{lstlisting} [language={C++}, label{lst:type2chunks}, caption={Simple example showing how it is possible to cause other memory regions to become tainted, assuming \texttt{ModuleInfo} to be tainted.}]
+\begin{lstlisting} [language={C++}, label={lst:type2chunks}, caption={Simple example showing how it is possible to cause other memory regions to become tainted, assuming \texttt{ModuleInfo} to be tainted.}]
 int aux_func(PRTL_PROCESS_MODULES &ModuleInfo) {
 	PVOID ImageBaseArray[1024];
 	for(ULONG i=0; i<ModuleInfo->NumberOfModules; i++) {
