@@ -208,7 +208,8 @@ Choosing the right environment is not an easy task and depends also on the malwa
 In order to make analysis environments safe, analysts use tool and techniques which isolate the malware as much as possible thus, reducing the harm caused to the system. Virtualised environments are, in this context, the best choice because they avoid that changes on the guest OS can fall back to the host OS. On the other hand, there is not much to do for bare-metal systems where the malware can directly infect the host operating system. Although it may seem that these latter systems are more disadvantageous than virtualised ones, they are the most transparent.\\
 The property of an analysis system to be indistinguishable from any non-analysis system, is referred to as \textit{transparency}\cite{bulazel2017survey}. While bare-metal analysis systems can reach a very high transparency level, it would be infeasible due to performance and design reasons, to build a transparent virtual machine\cite{garfinkel2007compatibility}.\\
 
-One category of malwares in addition to those listed in \autoref{sec:malwareinthewild}, is that of \textit{evasive malwares}. Specifically, belong to this group all malicious software whose behaviour is affected by the transparency level of analysis environments. Often, it is considered to be an orthogonal category because evasive techniques are usually added to the malware keeping, at the same time, its original malicious purpose. Evasive techniques installed by the malware author into the software, allow to hinder the malware analyst job making the whole process more time-consuming.\\
+One category of malwares in addition to those listed in \autoref{sec:malwareinthewild}, is that of \textit{evasive malwares}. Specifically, belong to this group all malicious software whose behaviour is affected by the transparency level of analysis environments. Often, it is considered to be an orthogonal category because evasive techniques are usually added to the malware keeping, at the same time, its original malicious purpose. Evasive techniques installed by the malware author into the software, allow to hinder the malware analyst job making the whole process more time-consuming.
+\newpage
 Depending on which feature they focus on, evasion techniques\footnote{Here, we refer to evasion techniques which aim to avoid dynamic analysis. A more in-depth description of evasive behaviours against static analysis techniques, can be found at \cite{moser2007limits}.} can be grouped into the following categories:
 \begin{itemize}
 \item \textit{Environmental artifacts}. The most common evasive behaviours are based on fingerprinting the underlying environment. When an OS like Windows is installed into a virtual machine like Oracle VirtualBox, the latter will add and modify some guest OS settings in order to work properly. This include the creation of specific files or registry keys which include virtual machine identifiers (e.g., the string \texttt{VirtualBox}) in their names. Beyond files and registry keys, other artifacts include the number of running processes, the name of external devices (e.g., disk name) or even the username\cite{lindorfer2011detecting};
@@ -265,7 +266,8 @@ int implicit_function(int a){
 }
 \end{lstlisting}
 \end{itemize}
-These are only the building blocks necessary to define information flow control in a system. Depending on why information flow security is enforced, the correspondent policy varies. Several solutions have been proposed to check information flow using \textit{type systems}, most of which to augment the security behind a programming language\cite{malecha2010more}. To carry out information flow security, any expression in a type system consists in a pair: a type (e.g., \texttt{int}) and a security label; then, based on this pair, the information flow policy can be either at compilation time, at runtime or even both\cite{sabelfeld2003language}.\\
+These are only the building blocks necessary to define information flow control in a system. Depending on why information flow security is enforced, the correspondent policy varies. Several solutions have been proposed to check information flow using \textit{type systems}, most of which to augment the security behind a programming language\cite{malecha2010more}. To carry out information flow security, any expression in a type system consists in a pair: a type (e.g., \texttt{int}) and a security label; then, based on this pair, the information flow policy can be either at compilation time, at runtime or even both\cite{sabelfeld2003language}.
+\newpage
 The biggest drawback of typing systems is that they require to extend the underlying language thus, introducing changes in the syntax and semantic as well as a different compiler. Nonetheless, there exist other approaches and techniques, different from type systems, which allow to enforce information flow on a program.
 
 \section{Taint Analysis}
@@ -311,7 +313,7 @@ The first aspect to be discussed is the \textit{taint granularity} which identif
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.5]{images/techn2}
+\includegraphics[scale=.4]{images/techn2}
 \caption{Bitwise AND operation between two bytes. Each box is the memory cell where the bit is stored: white cells indicate that the bit is untainted while those azure are tainted. In this case, the propagation is performed with bit-granularity.}
 \end{figure}
 
