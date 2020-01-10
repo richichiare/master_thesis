@@ -64,10 +64,12 @@
 \advisor{Dr. Daniele Cono D'Elia}
 \authoremail{riccardochiaretti7@gmail.com}
 
-\examdate{20 January 2020}
-\examiner{Prof. Nome Cognome}
-\examiner{Prof. Nome Cognome}
-\examiner{Dr. Nome Cognome}
+\examdate{21 January 2020}
+\examiner{Prof. Marco Schaerf}
+\examiner{Prof. Johannis Chatzigiannakis}
+\examiner{Dr. Daniele Cono D'Elia}
+\examiner{Dr. Andrea Marrella}
+\examiner{Prof. Massimo Mecella}
 \versiondate{\today}
 
 \begin{document}
@@ -75,7 +77,7 @@
 \frontmatter
 \maketitle
 
-\dedication{Dedicated to\\ Donald Knuth}
+\dedication{Dedicated to to my parents and my brother, \\without their support I would never have achieved this goal.}
 
 \begin{abstract}
 Malware is the abbreviation for malicious software and encompasses all software designed to infiltrate and harm any computer system without the owner consent. Malicious software is one of the most dangerous threats in today world and being able to detect and prevent them is a real challenge. The ability of security professionals to design automatic analysis systems capable of characterising malware behaviours, collides with the cunning of attackers who are always looking for new ways to escape from automatic countermeasures. It is a constant push and pull between developing effective tools for extracting malicious software profiles and split-personality malware which employ an array of anti-analysis measures.\\
@@ -83,7 +85,20 @@ Malicious samples which manage to circumvent automatic countermeasures, require 
 \end{abstract}
 
 \begin{acknowledgments}
-ciao
+First and foremost, I would like to thank my parents for allowing me to fully experience this wonderful adventure and for believing in me until the end of this journey. Thanks also to my little brother, whose smile and spontaneity was always able to cheer me up in the most difficult moments. I also wish you to live this adventure to the full and to meet colleagues as well as friends, amusing and capable just like it happened to me.\\
+
+I wish to express my deepest gratitude to my thesis advisor, Daniele, for helping and guiding me during the development of this project. I will certainly treasure all that I learned by collaborating with an experienced and competent researcher like him. I am also indebted to Federico, who has always been kind and available for all my doubts.\\
+
+Then, I would like to thank all my colleagues who have been part of this unforgettable experience. Thanks to Flavio, Emanuele, Giacomo, Sara, Cecilia, Cristina, Marco, Luca, Daniele, Andrea and all the friends I met during the years of my bachelor degree. In particular, I would like to acknowledge Giuseppe and Salvatore with whom I shared all the joys and difficulties of the life of an off-site student.\\
+I want also to thank all the colleagues I met during the last two years, Emanuele, Ludovica, Serena, Gabriele, Andrea and Umberto. Especially, I would like to recognise my study partner and friend Matteo for always having been by my side joking, laughing and preparing exams.\\
+To all of you, thank you for being present in the most beautiful moments but above all, for overcoming the darkest and most difficult moments together.\\
+
+Last but not least I would like to thank my friends from Cascia, those who regardless of the long distance, have not forgotten our friendship and the years spent together.
+\vspace{10mm}
+
+\begin{flushright}
+Riccardo Chiaretti
+\end{flushright}
 \end{acknowledgments}
 
 \tableofcontents
@@ -566,7 +581,7 @@ To taint data, libdft maintains a process-wide data structure (\autoref{subsubse
 \item The granularity adopted for performing tagging operations, that is, the tag granularity. libdft works at byte-level, which offers the best trade-off between fine-grained tracking and performance;
 \item The size used to store a tag, namely, the tag size. The larger the size of a tag, the higher the number of tags which allow to uniquely identify different kind of data. Nonetheless, the larger the size of a tag, the higher memory storage is required for each byte. libdft offers two tag sizes: a bit tag, which allows mark a byte either tainted or not and a byte tag, for attaching $8$ distinct colours to each byte.
 \end{itemize}
-After defining the format of the tag, a propagation policy is required to correctly drive the tag through program locations. The way libdft propagates each tag, is by inspecting every instruction which leads to a possible data dependency among its operands (\autoref{subsubsec:taintpropagationlogic}). Then, based on the dependency originated by the instruction, a suitable analysis function is injected to perform the tag propagation logic.
+After defining the format of the tag, a propagation policy is required to correctly drive the tag through program locations. The way libdft propagates each tag, is by inspecting every instruction which leads to a possible dependency among input and output operands (\autoref{subsubsec:taintpropagationlogic}). Then, based on the dependency originated by the instruction, a suitable analysis function is injected to perform the tag propagation logic.
 
 \subsection{Implementation Details}
 The core data structure that holds every tagged byte and around which the data flow tracking logic works, is called \textit{tagmap}. Internally, the tagmap is divide into two smaller memory maps: one keeps tags for each memory byte allocated by the program while the second map is used to store tags for CPU registers.
@@ -1069,8 +1084,8 @@ To provide few examples in which DTA-Tracker can be helpful, we chose the follow
 Running DTA-Tracker with the previously mentioned taint sources and enabling their respective countermeasures, the originated producer-consumer graph is the following:\\
 
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=.5]{images/eval1}
+\centering%scale=.43
+\includegraphics[width=\textwidth]{images/eval1_def}
 \caption{Producer-consumer graph resulting from a full run on Furtim.}
 \label{fig:eval1}
 \end{figure}
@@ -1087,8 +1102,8 @@ Furthermore, we tried to switch-off different hooks and see whether the producer
 The countermeasure present in \texttt{NtQuerySystemInformation} with input flag \texttt{SystemProcessInformation}, hides the presence of running applications which may trigger evasive behaviours. The output of this system call is an array of \texttt{SYSTEM\_PROCESS\_INFORMATION} data structures containing information about each process running in the system. When the respective countermeasure is disabled, the malware can see all the processes names in clear, including those characterising virtualised environments. The result produced by the tool consists in the following graph:
 
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=.5]{images/eval2}
+\centering%scale=.5
+\includegraphics[width=\textwidth]{images/eval2_def}
 \caption{Producer-consumer graph when Furtim evades due to the lack of \texttt{NtQuerySystemInformation} hook.}
 \end{figure}
 
@@ -1098,8 +1113,8 @@ Knowing that, the analyst can for example, place a breakpoint close to the instr
 Lastly we re-enabled the countermeasure of \texttt{NtQuerySystemInformation} while disabling the one for \texttt{GetAdaptersInfo}. This latter function retrieves information on computer adapters which are often used by malware authors to detect hypervisors and virtual machines. The result produced by DTA-Tracker under these settings, is the following producer-consumer graph:
 
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=.5]{images/eval3}
+\centering%scale=.5
+\includegraphics[width=\textwidth]{images/eval3_def}
 \caption{Producer-consumer graph when Furtim evades due to the lack of \texttt{GetAdaptersInfo} hook.}
 \end{figure}
 
@@ -1112,7 +1127,379 @@ Because of the possibility for a malware to hide implementation details through 
 
 We decided to develop DTA-Tracker to avoid inspecting each single instruction of the executable, but providing directions on where to proceed. Leveraging the number of function and system call hooks embedded in BluePill, it makes possible possible to selectively taint the output of different calls. Using a consumer-driven approach, it allows to have a view of program slices where tainted memory is involved in data movement and comparison operations, emphasising the relevant instructions. Moreover, through information collected during the dynamic analysis phase and using reasonable heuristics, the tool provides calling context details about where tainted data originated. Finally, all this knowledge is organized according to a scheme that, as far as we know, had never been applied for this purpose, that is, the producer-consumer graph.
 
+\chapter*{Appendix}
+As already explained in detail during the presentation of the work, our tool consists of two different components:
+\begin{enumerate}
+\item The first one is responsible of dynamically executing the binary and collecting the necessary data. In particular, the executable is run under BluePill which offers neutralisation countermeasures against evasive techniques while through libdft it is possible to carry out dynamic taint analysis on the binary;
+\item The second and last component comes to play after the dynamic analysis component finishes its task and it is in charge of building the producer-consumer graph. Due to the high performance overhead already introduced by the taint analysis technique, this last phase is carried out offline.
+\end{enumerate}
+Given this design, DTA-Tracker is implemented by two different programs each one responsible for one of the two phases.\\
 
+In order to help the user to understand how to fully exploit the features of the tool, this appendix provides a step-by-step description on how to build the producer-consumer graphs presented on \iffalse insert evaluation chapter here\fi .\\
+
+The first step consists in choosing the taint sources where to place taint seeds. To produce the graphs in \iffalse insert evaluation chapter here\fi we previously run the malware under BluePill to have the set of calls invoked by the program. The version of BluePill currently used by DTA-Tracker, produces a set of \texttt{.txt} file in \texttt{C:$\backslash\backslash$User-Directory$\backslash\backslash$Arancino} where to inspect function and system calls invoked by each thread spawned by the analysed malware. To produce the aforementioned text file, we can run BluePill through the following command line script.
+\begin{lstlisting} [language={bash}, caption={Command line script to run the binary sample named \texttt{furtim\_sample.exe} under BluePill.}]
+C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread 
+				   -antiev-swrite -antiev-ins -- 
+				   C:\Users\Riccardo\Documents\furtim_sample.exe
+\end{lstlisting}
+From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of DTA-Tracker. For the evaluations provided above, we run BluePill on Furtim malware and we chose the following set of tainted sources: \texttt{NtqueryAttributesFile}, \texttt{cpuid}, \texttt{GetAdaptersInfo}, \texttt{NtQuerySystemInforma\-tion(SystemModuleInformation)}, \texttt{NtQuerySystemInformation(SystemProc\-essInformation)}, \texttt{NtQuerySystemInformation(SystemKernelDebuggerInfo\-rmation)}, \texttt{EnumDisplaySettings}, \texttt{LoadLibraryW}.\\
+
+After having accurately chosen the set of calls whose output should be tainted, we need to give these preferences in input to DTA-Tracker. To do so, the tool reads a text file previously filled-up with the appropriate data. Specifically, the file must be named \texttt{colours.txt} and placed in the working directory of Intel Pin binary. Each line represents the binding between the hook of a function, system call or instruction and the corresponding taint seed through which colouring its output. The hook is identified through a number from $0$ to $255$ while the taint seed must be chosen from the following set: $\{1, 2, 4, 8, 16, 32, 64, 128\}$. To replicate the results provided in evaluation chapter, the content of \texttt{colours.txt} file should be exactly the following.
+\begin{lstlisting} [language={TeX}, caption={Content of \texttt{colours.txt} file to replicate the same results presented in the evaluation chapter.}]
+1-2
+2-1
+3-32
+4-8
+5-16
+6-64
+7-4
+8-128
+\end{lstlisting}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=.5]{images/appendix1}
+%\caption{Example showing how each line of \texttt{colurs.txt} file should be formatted.}
+%\end{figure}
+
+Before actually starting the analysis, we can still take advantage of the features offered by BluePill to operate on the malware execution. As already explained in \iffalse section BluePill\fi , to neutralise malware evasion techniques, BluePill provides several hooks to functions, system calls and even x$86$ instructions for observing the behaviour of the malicious binary. Each countermeasure can be easily turned on and off based on what malware behaviour is being emphasised. The basic idea remains to study the interaction between the sample and tainted data to characterize the behaviour of the malware both in case of evasions and not. In order for DTA-Tracker to produce the first graph shown in the evaluations, all the countermeasures related to the aforementioned taint sources should be active.
+\begin{lstlisting} [language={C++}, label={lst:hooks}, caption={List of taint sources.}]
+/*cpuid instruction as taint source*/
+VOID AssemblyHandler::patchCpuidExit(ADDRINT ip, CONTEXT *ctxt, ADDRINT cur_eip) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(1)) != colours_map.end()) {
+		col = f->second;
+	}
+	else { col = 0; }
+	if (rd->param == 1) {
+		if (ProcInfo::getInstance()->isInsideMainIMG(ip)) {
+			LOG_EVASION("[CPUID] - 0x1");
+		}
+		UINT32 mask = 0xFFFFFFFFULL;
+		_ecx &= (mask >> 1);
+		if (col != 0) {
+			TAINT_TAG_REG(ctxt, GPR_ECX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_EAX, col, col, col, col);
+		}
+	}
+	else if (rd->param >= 0x40000000 && rd->param <= 0x400000FF) {
+		LOG_EVASION("[CPUID] - 0x4");
+		_ecx = 0x0ULL;
+		_ebx = 0x0ULL;
+		_edx = 0x0ULL;
+		if (col != 0) {
+			TAINT_TAG_REG(ctxt, GPR_EAX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_ECX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_EBX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_EDX, col, col, col, col);
+		}
+	}
+	else if (rd->param == 0x80000000) {
+		LOG_EVASION("[CPUID] - 0x8");
+		if (col != 0) {
+			TAINT_TAG_REG(ctxt, GPR_EAX, col, col, col, col);
+		}
+	}
+	else if (rd->param == 0x80000001) {
+		LOG_EVASION("[CPUID] - 0x81");
+		if (col != 0) {
+			TAINT_TAG_REG(ctxt, GPR_EAX, col, col, col, col);
+		}
+	}
+	else if (rd->param >= 0x80000002 && rd->param <= 0x80000004) {
+		LOG_EVASION("[CPUID] - 0x82+");
+		if (col != 0) {
+			TAINT_TAG_REG(ctxt, GPR_EAX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_ECX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_EBX, col, col, col, col);
+			TAINT_TAG_REG(ctxt, GPR_EDX, col, col, col, col);
+		}
+	}
+
+	PIN_SetContextReg(ctxt, REG_GCX, _ecx);
+	PIN_SetContextReg(ctxt, REG_GBX, _ebx);
+	PIN_SetContextReg(ctxt, REG_GDX, _edx);
+
+}
+/*NtQueryAttributesFile as taint source*/
+void HookSyscalls::NtQueryAttributesFileHook(syscall_t *sc, CONTEXT *ctx, SYSCALL_STANDARD std) {
+	...
+	if (HiddenElements::shouldHideGenericFileNameStr(value)) {
+		LOG_EVASION("[NtQueryAttributesFile] - %s", value);
+		/*for (W::USHORT i = p->Length - 8; i < p->Length - 1; i += 2) {
+			memcpy((char *)p->Buffer + i, L"a", sizeof(wchar_t));
+			PIN_SafeCopy((char *)p->Buffer + i, L"a", sizeof(wchar_t));
+		}*/
+		string hook_name("NtQueryAttributesFile");
+		thread_ctx_t *thread_ctx = (thread_ctx_t *)PIN_GetContextReg(ctx, thread_ctx_ptr);
+		map<UINT32, tag_t>::iterator f;
+		tag_t col;
+		if ((f = colours_map.find(2)) != colours_map.end()) {
+			col = f->second;
+			log_hook_id(hook_name, thread_ctx, (ADDRINT)basicInfo, sizeof(W::FILE_BASIC_INFO));
+			TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+			addTaintMemory((ADDRINT)&(basicInfo->CreationTime.QuadPart), sizeof(W::LONGLONG), col, true);
+			addTaintMemory((ADDRINT)&(basicInfo->LastAccessTime.QuadPart), sizeof(W::LONGLONG), col, true);
+			addTaintMemory((ADDRINT)&(basicInfo->LastWriteTime.QuadPart), sizeof(W::LONGLONG), col, true);
+			addTaintMemory((ADDRINT)&(basicInfo->ChangeTime.QuadPart), sizeof(W::LONGLONG), col, true);
+			addTaintMemory((ADDRINT)&(basicInfo->FileAttributes), sizeof(W::DWORD), col, true);
+		}		
+	}
+}
+/*NtQSI-SystemProcessInformation taint source*/
+...
+if (sc->arg0 == SystemProcessInformation) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(5)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)spi, s);
+	} else {	col = 0; }
+	while (spi->NextEntryOffset) {
+		if (spi->ImageName.Buffer != nullptr) {	
+			char value[PATH_BUFSIZE];
+			GET_TO_UPPER(spi->ImageName.Buffer, value, PATH_BUFSIZE);
+			if (HiddenElements::shouldHideProcessStr(value)) {
+				PIN_SafeCopy(spi->ImageName.Buffer, L"abc.exe", sizeof(L"abc.exe"));
+			}
+			if (col != 0) {
+				TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+				addTaintMemory((ADDRINT)&(spi->NextEntryOffset), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->NumberOfThreads), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->CreateTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->UserTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->KernelTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)(spi->ImageName.Buffer), spi->ImageName.Length, col, true);
+				addTaintMemory((ADDRINT)&(spi->BasePriority), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->ProcessId), sizeof(W::HANDLE), col, true);
+				addTaintMemory((ADDRINT)&(spi->InheritedFromProcessId), sizeof(W::HANDLE), col, true);	
+			}
+		}
+		spi = (PSYSTEM_PROCESS_INFO)((W::LPBYTE)spi + spi->NextEntryOffset);
+	}
+}
+...
+/*NtQSI-SystemModuleInformation taint source*/
+...
+else if (sc->arg0 == SystemModuleInformation) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(4)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)pmi, s);
+	} else { col = 0; }
+	for (size_t i = 0; i < size; i++) {
+		if (strstr((char*)pmi->Modules[i].FullPathName, "VBox") != NULL) {
+			char* tmpAddr = (char*)pmi->Modules[i].FullPathName;
+			size_t len = strlen(tmpAddr) + 1;
+			if (col != 0) {
+				TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+				addTaintMemory((ADDRINT)&(pmi->NumberOfModules), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].Section), sizeof(W::HANDLE), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].ImageSize), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].Flags), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].LoadOrderIndex), sizeof(W::USHORT), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].InitOrderIndex), sizeof(W::USHORT), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].LoadCount), sizeof(W::USHORT), col, true);
+				addTaintMemory((ADDRINT)&(pmi->Modules[i].OffsetToFileName), sizeof(W::USHORT), col, true);
+				addTaintMemory((ADDRINT)(pmi->Modules[i].FullPathName), len, col, true);
+			}
+			for (size_t i = 0; i < len - 1; i++) {
+				PIN_SafeCopy(tmpAddr + i, "a", sizeof(char));
+			}
+		}
+	}
+}
+...
+/*NtQSI-SystemKernelDebuggerInformation taint source*/
+...
+else if (sc->arg0 == SystemKernelDebuggerInformation) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(3)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)skdi, s);
+		TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+		addTaintMemory((ADDRINT)&(skdi->KernelDebuggerEnabled), sizeof(W::BOOLEAN), col, true);
+		addTaintMemory((ADDRINT)&(skdi->KernelDebuggerNotPresent), sizeof(W::BOOLEAN), col, true);
+	}
+}
+/*GetAdaptersInfo taint source*/
+VOID GetAdaptersInfoHookExit(ADDRINT ret, CONTEXT *ctx) {
+	...	
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(7)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)adapInfo, preSize);
+	}
+	else { col = 0; }
+	while (adapInfo != nullptr) {
+		if (adapInfo->AddressLength > MAX_POSSIBLE_SIZE_MAC) return;
+		if (adapInfo->AddressLength == 6 && (!memcmp("\x08\x00\x27", adapInfo->Address, 3) ||
+			!memcmp("\x00\x05\x69", adapInfo->Address, 3) || !memcmp("\x00\x0c\x29", adapInfo->Address, 3) ||
+			!memcmp("\x00\x1c\x14", adapInfo->Address, 3) || !memcmp("\x00\x50\x56", adapInfo->Address, 3))) {
+			memcpy(adapInfo->Address, "\x07\x01\x33", 3);
+			break;
+		}
+		if (col != 0) {
+			addTaintMemory((ADDRINT)(adapInfo->AdapterName), MAX_ADAPTER_NAME_LENGTH + 4, col, true);
+			addTaintMemory((ADDRINT)(adapInfo->Description), MAX_ADAPTER_DESCRIPTION_LENGTH + 4, col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->AddressLength), sizeof(UINT), col, true);
+			addTaintMemory((ADDRINT)(adapInfo->Address), MAX_ADAPTER_ADDRESS_LENGTH, col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->Index), sizeof(W::DWORD), col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->Type), sizeof(W::UINT), col, true);
+		}
+		adapInfo = adapInfo->Next;
+	}
+}
+/*EnumDisplaySettings taint sources*/
+VOID EnumDisplaySettingsHook(W::LPCTSTR *devName, CONTEXT *ctx) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(6)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)devName, W::lstrlen(*devName));
+		addTaintMemory((ADDRINT)devName, W::lstrlen(*devName), col, true);
+	}
+}
+/*LoadLibraryW taint sources*/
+VOID LoadLibraryWHook_exit(CONTEXT *ctx) {
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(8)) != colours_map.end()) {
+		col = f->second;
+		TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+	}
+}
+\end{lstlisting}
+As it is possible to see from Listing \ref{lst:hooks} there are common traits between the various hooks, starting from the presence of an \texttt{if} statement involving an hashmap called \texttt{colours\_map}. This latter is exactly the data structure containing the mapping between hook ids and colours. Each time one of the hooks is triggered, the tool checks whether the respective id is contained within this map and, if it happens, the corresponding color (the \texttt{tag\_t col} variable) is employed as taint seed. The search operation is carried out by the line \texttt{(f = colours\_map.find(/*hook\_id*/)) != colours\_map.end()} where \texttt{hook\_id} should be substituted with the id corresponding to that hook. Moreover, performances offered by the \texttt{.find()} function on the hashmap, allow to search elements with $O(\log n)$ time complexity.\\
+Within the aforementioned \texttt{if} statement, some hooks have a call to the \texttt{log\_hoo\-k\_id(string, thread\_ctx\_t*, ADDRINT, size\_t)} function. Specifically, only taint sources that write data in memory are equipped with this call. Indeed, its purpose is to populate the \texttt{taintedregions.txt} file with information about first type producers (\iffalse aggiungere reference chapter producers\fi), namely:
+\begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
+\item the name of the function, system call or instruction whose hook is triggered
+\item the context in which the call was made
+\item the starting and ending address of the overall memory area that has been coloured
+\item and also the start and end address of each single tainted memory chunks.
+\end{enumerate*}
+Lastly, there are two other function calls in common to all the hooks, namely, \texttt{addTaintMemory(ADDRINT, UINT32, tag\_t, bool)} and \texttt{TAINT\_TAG\_REG(thread\_ctx\_t*, int, tag\_t, tag\_t, tag\_t, tag\_t)}:
+\begin{itemize}
+\item \texttt{addTaintMemory} is the function used to taint memory bytes. The input parameters are respectively: 
+\begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
+\item the starting address of the memory chunk to be tagged
+\item the size of the chunk
+\item the colour
+\item and a boolean variable telling whether the tag of the target bytes should be overwritten or combined with the one already owned by that byte, if any.
+\end{enumerate*}
+Specifically, it is a wrapper function which in the end, colours the byte of libdft tagmap (\iffalse aggiungere reference chapter libdft\fi) through a call to \texttt{tagmap\_setb\_with\_tag(ADDRINT, tag\_t)}. In case the boolean variable is set to \texttt{false}, a call to the the function \texttt{tagmap\_getb(ADDRINT)} is used to retrieve the tag corresponding to the target address;
+\item The counterpart of \texttt{addTaintMemory} which deals with colouring the register bytes is \texttt{addTaintRegister}. The input arguments are respectively:
+\begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
+\item a per-thread data structure managed by BluePill
+\item an integer value denoting the general purpose registers. libdft uses $8$ different values each of which identifies one GPR
+\item lastly, the remaining $4$ arguments correspond to the taint seed used for colouring each byte of the register.
+\end{enumerate*}
+The per-thread data structure is necessary to get libdft \texttt{vcpu} data structure of the currently executing thread.
+\end{itemize}
+The user can easily add or remove any of these function calls depending on which portions of output data should be tainted: the more bytes are coloured and the more complete is the malware profile but, at the same time, the greater the amount of noise.\\
+
+At this point, when the dynamic analysis terminates, we can start building the producer-consumer graph. At first, the offline component takes all the three file generated in the previous phase to produce a file formatted using the \textit{DOT} graph description language\footnote{graphviz.org/doc/info/lang.html.}. To run the offline analysis, the files should be given in input in the following order:
+\begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
+\item memory accesses file
+\item tainted regions 
+\item and lastly, the tainted trace file.\\
+\end{enumerate*}
+\begin{lstlisting} [language={bash}, caption={Command line script to run DTA-Tracker offline component.}, escapechar={§}]
+C:\Users\Riccardo\Documents\ProducerConsumer > ProducerConsumer.exe furtim_sample_memoryaccesses.txt 
+		 furtim_sample_taintedregions.txt 
+		 furtim_sample_taintedtrace.txt
+\end{lstlisting}
+Various programs like \textit{Graphviz}\footnote{https://www.graphviz.org/.} can process DOT files to render them in a graphical form. From the working directory of Graphviz executable and running the command below, we can get the graphical representation of the producer-consumer graph relative to the file \texttt{furtim\_sample\_prodcons.gv} (the first picture shown in chapter \iffalse insert eval chapter here\fi ).
+\begin{lstlisting} [language={bash}, caption={Command line script to generate the graphical representation of the producer-consumer graph relative to the previous analysis on Furtim.}]
+C:\Users\Riccardo\Documents\graphviz > dot.exe -Tpng -O furtim_sample_prodcons.gv
+\end{lstlisting}
+This is exactly the series of steps to follow in order to generate the graph in the figure \iffalse inserire autoref al primo grafo di evaluations\fi .\\ 
+
+Nonetheless, to build the other two graphs, we need to make changes to some of the hooks listed in \ref{lst:hooks}. Specifically, for the run where Furtim evades after inspecting the running processes in the machine, only the \texttt{NtQuerySystemInformati\-on(SystemProcessInformation)} hook should be changed like following.
+\begin{lstlisting} [language={C++}, caption={NtQuerySystemInformation hook with SystemProcessInformation as second parameter, that leads to the first evasion of Furtim malware.}]
+...
+if (sc->arg0 == SystemProcessInformation) {
+	...
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(5)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)spi, s);
+	} else {	col = 0; }
+	while (spi->NextEntryOffset) {
+		if (spi->ImageName.Buffer != nullptr) {	
+			char value[PATH_BUFSIZE];
+			GET_TO_UPPER(spi->ImageName.Buffer, value, PATH_BUFSIZE);
+			/*
+			* NtQSI-SystemProcessInformation hook disabled
+			*/
+			if (col != 0) {
+				TAINT_TAG_REG(ctx, GPR_EAX, col, col, col, col);
+				addTaintMemory((ADDRINT)&(spi->NextEntryOffset), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->NumberOfThreads), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->CreateTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->UserTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->KernelTime.QuadPart), sizeof(W::LONGLONG), col, true);
+				addTaintMemory((ADDRINT)(spi->ImageName.Buffer), spi->ImageName.Length, col, true);
+				addTaintMemory((ADDRINT)&(spi->BasePriority), sizeof(W::ULONG), col, true);
+				addTaintMemory((ADDRINT)&(spi->ProcessId), sizeof(W::HANDLE), col, true);
+				addTaintMemory((ADDRINT)&(spi->InheritedFromProcessId), sizeof(W::HANDLE), col, true);	
+			}
+		}
+		spi = (PSYSTEM_PROCESS_INFO)((W::LPBYTE)spi + spi->NextEntryOffset); // Calculate the address of the next entry.
+	}
+}
+...
+\end{lstlisting}
+On the other hand, to replicate the last graph (\iffalse inserire autoref all'ultima figura\fi ) shown in \iffalse inserire autoref al chapter evaluations\fi , the previous hook should return to be as in \ref{lst:hooks} while the one related to \texttt{GetAdaptersInfo()} needs to be changed as follows.
+\begin{lstlisting} [language={C++}, caption={GetAdaptersInfo hook which leads to the evasion of Furtim malware.}]
+/*GetAdaptersInfo taint source*/
+VOID GetAdaptersInfoHookExit(ADDRINT ret, CONTEXT *ctx) {
+	...	
+	map<UINT32, tag_t>::iterator f;
+	tag_t col;
+	if ((f = colours_map.find(7)) != colours_map.end()) {
+		col = f->second;
+		log_hook_id(hook_name, thread_ctx, (ADDRINT)adapInfo, preSize);
+	}
+	else { col = 0; }
+	while (adapInfo != nullptr) {
+		if (adapInfo->AddressLength > MAX_POSSIBLE_SIZE_MAC) return;
+		if (adapInfo->AddressLength == 6 && (!memcmp("\x08\x00\x27", adapInfo->Address, 3) ||
+			!memcmp("\x00\x05\x69", adapInfo->Address, 3) || !memcmp("\x00\x0c\x29", adapInfo->Address, 3) ||
+			!memcmp("\x00\x1c\x14", adapInfo->Address, 3) || !memcmp("\x00\x50\x56", adapInfo->Address, 3))) {
+			/*GetAdaptersInfo hook disabled*/
+		}
+		if (col != 0) {
+			addTaintMemory((ADDRINT)(adapInfo->AdapterName), MAX_ADAPTER_NAME_LENGTH + 4, col, true);
+			addTaintMemory((ADDRINT)(adapInfo->Description), MAX_ADAPTER_DESCRIPTION_LENGTH + 4, col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->AddressLength), sizeof(UINT), col, true);
+			addTaintMemory((ADDRINT)(adapInfo->Address), MAX_ADAPTER_ADDRESS_LENGTH, col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->Index), sizeof(W::DWORD), col, true);
+			addTaintMemory((ADDRINT)&(adapInfo->Type), sizeof(W::UINT), col, true);
+		}
+		adapInfo = adapInfo->Next;
+	}
+}
+\end{lstlisting}
+To sum up, the whole process can be divided into the following steps:
+\begin{enumerate}
+\item At first, the user should carefully choose which are the taint sources. This can be accomplished by performing a preliminary run of the sample under BluePill to see which countermeasures are triggered;
+\item Secondly, the hooks should be changed appropriately, depending on the malware behaviour to emphasise;
+\item The third step consists in filling-up the \texttt{colours.txt} file to reflect the choice of taint sources;
+\item Launch the dynamic analysis component of DTA-Tracker to produce the necessary files: the tainted trace, the memory accesses and the tainted regions files;
+\item Through the offline component, generate the text file that describes the producer-consumer graph using the DOT graph description language;
+\item Lastly, the DOT file can be rendered in a graphical form using the Graphviz suite.
+\end{enumerate}
 
 \backmatter
 \cleardoublepage
