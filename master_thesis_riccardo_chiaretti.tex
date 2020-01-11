@@ -52,7 +52,7 @@
 \lstset{style=codesnippets}
 
 % Commands for the titlepage
-\title{DTA-Tracker: a colourful approach to understanding split-personality malware}
+\title{DTA-Tracker: A colourful approach to\\understanding split-personality malware}
 \author{Riccardo Chiaretti}
 \IDnumber{1661390}
 \course{Ingegneria Informatica - Engineering in Computer Science}
@@ -171,7 +171,7 @@ Although these groups may seem unrelated to each other, malware samples often sp
 
 \newpage
 \section{Analysing Malware}
-The constant growth of malicious software employed to disrupt information systems, gave rise to a new discipline called \textit{malware analysis}. This discipline consists in dissecting malicious software to have a better understanding of its behaviour, how it is be possible to identify it and provide countermeasures~\cite{sikorski2012practical}. The figure responsible to carry out the analysis of malwares is called \textit{malware analyst}. The goal of a malware analyst typically consists in identifying the malware executable, determine its behaviour by also recognizing the infected files and endpoints and usually provide information either on how to respond to the attack or how to limit the damage.
+The constant growth of malicious software employed to disrupt information systems, gave rise to a new discipline called \textit{malware analysis}. This discipline consists in dissecting malicious software to have a better understanding of its behaviour, how it is be possible to identify it and provide countermeasures~\cite{sikorski2012practical}. The figure responsible to carry out the analysis of malware samples is called \textit{malware analyst}. The goal of a malware analyst typically consists in identifying the malware executable, determine its behaviour by also recognizing the infected files and endpoints and usually provide information either on how to respond to the attack or how to limit the damage.
 
 Once the analysis procedure ends, it is possible to produce an identifier which sums-up some of the main malware features. In the literature, these identifiers are called \textit{signatures} and are usually the final result of automatic malware analysis programs. Specifically, there exist two categories:
 \begin{itemize}
@@ -185,6 +185,7 @@ These signatures are usually kept inside a large database and used by Intrusion 
 \caption{High-level architecture of signature-based anti-virus programs.}
 \end{figure}
 \newpage
+\noindent
 However, today's malware authors use different obfuscation techniques to conceal distinguishing figures of a malware and for this reason, anti-virus programs must adopt more 
 sophisticated technology.\\
 
@@ -214,6 +215,7 @@ Despite the fact that there exist several tools and techniques to carry out the 
 \end{figure}
 
 \newpage
+\noindent
 Static analysis is usually one of the first step to get an high-level understanding of what the malware does. Although it is useful, the second step consists in confirming these findings through dynamic analysis. Usually, this is exactly what a malware analyst does when facing a packed malware. Malware writers often decide to obfuscate their malicious software to make it more difficult for analysts to detect and analyse it. Packing manages to reach obfuscation by compressing or encrypting (part of) the malware and using a stub\footnote{When talking about packed software, a stub refers to the module implementing the decryption or decompression routine.} for decryption only when it is executed. For this reason, at first some basic static analysis tool is used to detect whether the malware is packed or not and then, through advanced dynamic analysis techniques, the malware can be unpacked.
 
 Therefore, a malware analysis session is not either static or dynamic rather, it consists of a combination of static and analysis techniques. Moreover, especially when dissecting the sample inside a debugger, the analyst must adopt a set of expedients to avoid the infection or limit the damage caused by the malware.
@@ -238,7 +240,7 @@ Choosing the right environment is not an easy task and depends also on the malwa
 In order to make analysis environments safe, analysts use tool and techniques which isolate the malware as much as possible thus, reducing the harm caused to the system. Virtualised environments are, in this context, the best choice because they avoid that changes on the guest OS can fall back to the host OS. On the other hand, there is not much to do for bare-metal systems where the malware can directly infect the host operating system. Although it may seem that these latter systems are more disadvantageous than virtualised ones, they are the most transparent.\\
 The property of an analysis system to be indistinguishable from any non-analysis system, is referred to as \textit{transparency}~\cite{bulazel2017survey}. While bare-metal analysis systems can reach a very high transparency level, it would be infeasible due to performance and design reasons, to build a transparent virtual machine~\cite{garfinkel2007compatibility}.\\
 
-One category of malwares in addition to those listed in \autoref{sec:malwareinthewild}, is that of \textit{evasive malwares}. Specifically, belong to this group all malicious software whose behaviour is affected by the transparency level of analysis environments. Often, it is considered to be an orthogonal category because evasive techniques are usually added to the malware keeping, at the same time, its original malicious purpose. Evasive techniques installed by the malware author into the software, allow to hinder the malware analyst job making the whole process more time-consuming.
+One category of malware in addition to those listed in \autoref{sec:malwareinthewild}, is that of \textit{evasive malware}. Specifically, belong to this group all malicious software whose behaviour is affected by the transparency level of analysis environments. Often, it is considered to be an orthogonal category because evasive techniques are usually added to the malware keeping, at the same time, its original malicious purpose. Evasive techniques installed by the malware author into the software, allow to hinder the malware analyst job making the whole process more time-consuming.
 \newpage
 Depending on which feature they focus on, evasion techniques\footnote{Here, we refer to evasion techniques which aim to avoid dynamic analysis. A more in-depth description of evasive behaviours against static analysis techniques, can be found at~\cite{moser2007limits}.} can be grouped into the following categories:
 \begin{itemize}
@@ -260,7 +262,7 @@ Evasive malware raise difficult challenges to malware analyst, slowing down the 
 
 \section{Information Flow}
 \label{sec:informationflow}
-How is it possible for an information system to prevent the leakage of sensitive data? This is the main problem that the field of security information flow tries to address. While there exist several solutions to limit the possibility of information disclosure (e.g., firewalls, access control) it is still difficult provide guarantees about the prevention of data propagation. In the world of cybersecurity, there exist a specific malware category namely, information-stealing malwares, which aims to collect sensitive information from the victim's computer for malicious purposes.\\
+How is it possible for an information system to prevent the leakage of sensitive data? This is the main problem that the field of security information flow tries to address. While there exist several solutions to limit the possibility of information disclosure (e.g., firewalls, access control) it is still difficult provide guarantees about the prevention of data propagation. In the world of cybersecurity, there exist a specific malware category namely, information-stealing malware, which aims to collect sensitive information from the victim's computer for malicious purposes.\\
 
 Information flow analysis is usually carried out through static analysis techniques which assess that the program does not leak any sensitive information~\cite{smith2007principles}. Before starting the analysis, we need to define the \textit{information flow policy} as a triple $IFP = (O, SC, b, \leq)$ consisting of~\cite{denning1977certification}:
 \begin{itemize}
@@ -316,7 +318,7 @@ From a higher perspective, the main components of taint analysis are:
 Depending whether the analysis is performed statically or dynamically we have, respectively, static taint analysis or dynamic taint analysis.
 
 \subsection{Static Taint Analysis}
-As the name says, static taint analysis is performed statically, without executing the program. Since the benefit of statically analysing a program resides in a better code coverage, with static taint analysis is possible to identify program vulnerabilities or information flow leakage which may not come out during a normal execution. However, due to the lack of runtime information, this approach risks to be imprecise as it needs to approximate input and runtime objects~\cite{arzt2014flowdroid}.
+As the name says, static taint analysis is performed statically, without executing the program. Since the benefit of statically analysing a program resides in a better code coverage, with static taint analysis is possible to identify program vulnerabilities or information flow leakage which may not come out during a normal execution. However, due to the lack of run-time information, this approach risks to be imprecise as it needs to approximate input and run-time objects~\cite{arzt2014flowdroid}.
 
 \subsubsection{Design Details}
 Static taint analysis is a technique suitable for analysing both source codes and binary programs. Since the program is not executed, a Control Flow Graph (CFG) should be constructed for the application in question~\cite{mumtaz2017critical}. A CFG of a program, is the graphical representation of the control flow of the application, showing how information propagates through the series of statements~\cite{WhyProgr19:online}.
@@ -337,7 +339,7 @@ Usually, to keep track of every program variable, each one is represented as a t
 
 \subsection{Dynamic Taint Analysis}
 \label{sec:dta}
-Dynamic taint analysis (DTA) also known as data flow tracking (DFT), uses taint analysis technique while the program is executing. Even though this means having smaller code coverage, at the same time it allows a more precise analysis. Indeed, we now have access to all runtime information like the value of memory addresses as well as memory content.
+Dynamic taint analysis (DTA) also known as data flow tracking (DFT), uses taint analysis technique while the program is executing. Even though this means having smaller code coverage, at the same time it allows a more precise analysis. Indeed, we now have access to all run-time information like the value of memory addresses as well as memory content.
 
 \subsubsection{Design Details}
 The first aspect to be discussed is the \textit{taint granularity} which identifies the tag data unit. Defining the granularity to be as small as single bits, enables us to be more accurate and to perform a very fine-grained data flow tracking. For example, let's consider the propagation of taint through a bitwise operation where just one of the two operands is tainted.
@@ -598,9 +600,9 @@ The \textit{introspection layer} uses PinADX~\cite{lueck2012pinadx} for exposing
 BluePill introduces also a new method which allows to apply code patches during debugging. Specifically, it allows the analyst to change arbitrary length code while debugging a sample. This is possible by JIT-recompiling the involved instructions and introducing trampolines which the program cannot detect since the DBI scheme points them to the original addresses (i.e., not jitted addresses). In the end, this mechanism allows to alter instruction of a malicious sample, while being stealthy against anti-tampering and anti-checksumming techniques.
 
 \subsubsection{DBI Artifacts Anti-Evasion Layer}
-The \textit{DBI artifacts anti-evasion layer} is in charge of hiding artifacts which may expose the presence of an underlying DBI system. Indeed, a painstaking malware author can detect its presence through several techniques like checking for runtime overhead, leaking the instruction pointer or also verifying the consistency of memory permissions. BluePill provides countermeasures for all these attacks including detections based both on time and on debugging artifacts.
+The \textit{DBI artifacts anti-evasion layer} is in charge of hiding artifacts which may expose the presence of an underlying DBI system. Indeed, a painstaking malware author can detect its presence through several techniques like checking for run-time overhead, leaking the instruction pointer or also verifying the consistency of memory permissions. BluePill provides countermeasures for all these attacks including detections based both on time and on debugging artifacts.
 
-The fast forwarding mechanism discussed in \autoref{subsec:targetplatformsimulation}, is already an effective countermeasure against anti-DBI techniques that check for runtime overhead.
+The fast forwarding mechanism discussed in \autoref{subsec:targetplatformsimulation}, is already an effective countermeasure against anti-DBI techniques that check for run-time overhead.
 
 The introspection layer already prevents anti-tampering techniques but a malware can still look for debugging artifacts. To accommodate these situations, if an exception is caught, BluePill allows passing the exception to the sample. This can happen, for example, when the analyst temporarily detaches the debugger and waits for it to reattach before resuming the execution in the malware handler. Moreover, to hide completely the presence of a debugger, BluePill also changes the \texttt{BeingDebugged} byte into the PEB.\\
 
@@ -750,9 +752,9 @@ Being libdft originally developed for the Linux kernel, a great effort was emplo
 
 \chapter{DTA-Tracker}
 \label{ch:dta-tracker}
-In the previous chapter we discussed about how dynamic binary instrumentation is employed by BluePill to neutralise evasive behaviours and how libdft, instead, employs it to design a dynamic flow tracking library. DTA-Tracker is a tool which leverages BluePill capabilities and libdft library for profiling the interaction between the executable and data it manipulates.\\
+In the previous chapter we discussed about how dynamic binary instrumentation is employed by BluePill to neutralise evasive behaviours and how libdft, instead, employs it to design a dynamic flow tracking library. {\sf DTA-Tracker} is a tool which leverages BluePill capabilities and libdft library for profiling the interaction between the executable and data it manipulates.\\
 
-DTA-Tracker consists of two components: 
+{\sf DTA-Tracker} consists of two components: 
 \begin{itemize}
 \item The first one is in charge of collecting necessary data through dynamic analysis;
 \item Then, the second component's task consists in carrying out an offline analysis of gathered information.
@@ -760,19 +762,19 @@ DTA-Tracker consists of two components:
 This chapter details the two aforementioned components together with insights about adopted techniques and implementation details.
 
 \section{Dynamic Analysis Component}
-As already mentioned, in the first step the malware is analysed to get information on how it actually uses memory. This analysis cannot be static rather, it must be dynamic in order to have access to runtime information like memory addresses.
+As already mentioned, in the first step the malware is analysed to get information on how it actually uses memory. This analysis cannot be static rather, it must be dynamic in order to have access to run-time information like memory addresses.
 
 Nonetheless, as discussed in \autoref{subsec:evasivemalware}, dynamically analysing a malware sample can be challenging especially when it adopts artifacts tailored for anti-dynamic and anti-sandbox analysis. For this reason, the malware sample is analysed under BluePill which offers neutralization techniques against these evasive behaviours.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.6]{images/dtatracker1}
-\caption{Bird's eye view of the Dynamic Analysis component of DTA-Tracker.}
+\caption{Bird's eye view of the Dynamic Analysis component of {\sf DTA-Tracker}.}
 \end{figure}
 \newpage
 \subsection{Identifying Taint Sources}
 \label{subsec:identifyingtaintsources}
-Before starting any analysis, we need to understand how to choose a source in a way to place taint over it. However, even before, the analyst should be aware of \textit{what} the system considers to be a taint source: DTA-Tracker identifies as taint source any instruction, function and system call which is already hooked in BluePill\footnote{At the moment of writing, DTA-Tracker handles only a subset of the hooks present in BluePill, but we have already planned to enlarge this set (see \autoref{ch:futureworks})}.\\
+Before starting any analysis, we need to understand how to choose a source in a way to place taint over it. However, even before, the analyst should be aware of \textit{what} the system considers to be a taint source: {\sf DTA-Tracker} identifies as taint source any instruction, function and system call which is already hooked in BluePill\footnote{At the moment of writing, {\sf DTA-Tracker} handles only a subset of the hooks present in BluePill, but we have already planned to enlarge this set (see \autoref{ch:futureworks})}.\\
 
 There are many ways to gain the knowledge about which function calls and system calls are leveraged by a malware to carry out its intent, some of which are the following:
 \begin{itemize}
@@ -780,7 +782,7 @@ There are many ways to gain the knowledge about which function calls and system 
 \item Use any static analysis tool (like IDA, pestudio) to extrapolate useful information about imported functions;
 \item Take advantage of automatic dynamic analysis tools like BluePill. Indeed, running the malware under this framework, it is possible to get a complete list of function calls and system calls leveraged by the sample. 
 \end{itemize}
-The behaviour of malicious software can be highly influenced by the environment where it executes. For this reason, the last approach is the most precise because DTA-Tracker will be launched in the same environment where BluePill is used.
+The behaviour of malicious software can be highly influenced by the environment where it executes. For this reason, the last approach is the most precise because {\sf DTA-Tracker} will be launched in the same environment where BluePill is used.
 \begin{lstlisting} [language={TeX}, caption={A subset of function and system calls extracted from a BluePill log file.}]
 ...
 ...
@@ -797,7 +799,7 @@ GetAdaptersInfo] - MAC address check
 
 \subsection{Tainting Step}
 \label{subsec:taintingstep}
-When there is a clear vision about the set of function calls and system calls invoked by the malware sample, the next step consists in tainting the output of those calls. However, libdft and consequently also DTA-Tracker, can colour not more than $8$ values at the same time (i.e., during a single execution). This limitation leads to a careful choice of those calls which output shall be tainted. When the number of taint sources is higher than the available number of colours, there are two possible approaches to address the constraint:
+When there is a clear vision about the set of function calls and system calls invoked by the malware sample, the next step consists in tainting the output of those calls. However, libdft and consequently also {\sf DTA-Tracker}, can colour not more than $8$ values at the same time (i.e., during a single execution). This limitation leads to a careful choice of those calls which output shall be tainted. When the number of taint sources is higher than the available number of colours, there are two possible approaches to address the constraint:
 \begin{enumerate}
 \item Use all the colours to taint more than $8$ output values. In this manner the analyst can surely capture many information at the expense of the quality. Indeed, the details we get from the analysis of a specific tag, do not make possible to trace back to a single taint source but to all taint sources sharing that specific colour;
 \item Use one colour to taint only the output of a specific call. In this way, compared to the previous solution, more runs are needed to get the same amount of information. Despite that, even though the quantity of information may be smaller, its quality is for sure better.
@@ -808,9 +810,9 @@ C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread
 				   -antiev-swrite -antiev-ins -- 
 				   C:\Users\Riccardo\Documents\furtim_sample.exe
 \end{lstlisting}
-When the option is enabled, a call to \texttt{loadTaintLib()} is performed in order to initialize any data structure required by libdft to work and to switch-on its instrumentation engine. Referring to \autoref{subsubsec:memorymap} and remembering that DTA-Tracker works with byte-size tags, in the initialization step only the segment translation table and the stack shadow memory are allocated by libdft for the process.\\
+When the option is enabled, a call to \texttt{loadTaintLib()} is performed in order to initialize any data structure required by libdft to work and to switch-on its instrumentation engine. Referring to \autoref{subsubsec:memorymap} and remembering that {\sf DTA-Tracker} works with byte-size tags, in the initialization step only the segment translation table and the stack shadow memory are allocated by libdft for the process.\\
 
-To give in input the target calls together with the correspondent colours, DTA-Tracker reads a text file named \texttt{colours.txt}. The file structure is quite simple: each line should contain just the hook id and the respective colour separated by a dash. By following this format, the analyst expresses the will to bind a color to the output of a specific call.
+To give in input the target calls together with the correspondent colours, {\sf DTA-Tracker} reads a text file named \texttt{colours.txt}. The file structure is quite simple: each line should contain just the hook id and the respective colour separated by a dash. By following this format, the analyst expresses the will to bind a color to the output of a specific call.
 
 \clearpage
 \noindent
@@ -822,9 +824,9 @@ In order for this procedure to work properly, two constraints must be met:
 Each line read from the file, fills one entry in a global data structure containing the binding. Because a simple array would waste precious memory, an hasmap was implemented where the hook id is the key and the taint seed is the correspondent value.
 
 \subsection{Extracting Calling Context Information}
-Being a pintool, BluePill has its own instrumentation code used to understand when and where to place specific analysis routines. These analysis routines mostly take the form of hooks on Windows function or system calls which are, indeed, used by DTA-Tracker as taint sources.\\
+Being a pintool, BluePill has its own instrumentation code used to understand when and where to place specific analysis routines. These analysis routines mostly take the form of hooks on Windows function or system calls which are, indeed, used by {\sf DTA-Tracker} as taint sources.\\
 
-In order to enhance the accuracy of information produced by DTA-Tracker, more instrumentation code and more (fine-grained) analysis routines should be added to BluePill. Indeed, when introducing the goal of the tool (\autoref{ch:dta-tracker}), we said that we would like to identify slices of a malware around which its main features revolve. However, without the appropriate data structures and without the right management logic, it is possible to to run the risk of being inaccurate.
+In order to enhance the accuracy of information produced by {\sf DTA-Tracker}, more instrumentation code and more (fine-grained) analysis routines should be added to BluePill. Indeed, when introducing the goal of the tool (\autoref{ch:dta-tracker}), we said that we would like to identify slices of a malware around which its main features revolve. However, without the appropriate data structures and without the right management logic, it is possible to to run the risk of being inaccurate.
 
 \subsubsection{Function Detection Using Nucleus}
 When talking about function detection, the most adopted approach consists in leveraging signature databases. These databases contain function prologues and epilogues of well-known routines, which can be scanned to understand if the binary under analysis matches these patterns. If they match then, with a certain degree of error, it is likely that the function in the binary sample is the same one identified by that signature.
@@ -864,7 +866,7 @@ Nonetheless, this task is not as easy as it may seem because especially in highl
 
 Thanks to the fact that it is an open-source tool, we had the possibility to access its source code and apply some small changes. In particular, we modified the output file format until having a text file where each line identifies a function with a pair \texttt{<start\_address>} \texttt{<end\_address>}. The file containing function boundaries generated by Nucleus, must be provided to BluePill before actually starting the analysis.
 
-When the file is given in input to BluePill, DTA-Tracker starts parsing it line-by-line and inserts each interval into an appropriate data structure. The main requirements of this data structure, are two: supporting fast insertion of intervals and efficiently search for the membership interval of any address. According to these two specifications, the choice settled on a binary tree where each node is an interval, namely, a \textit{binary interval tree} data structure.
+When the file is given in input to BluePill, {\sf DTA-Tracker} starts parsing it line-by-line and inserts each interval into an appropriate data structure. The main requirements of this data structure, are two: supporting fast insertion of intervals and efficiently search for the membership interval of any address. According to these two specifications, the choice settled on a binary tree where each node is an interval, namely, a \textit{binary interval tree} data structure.
 
 The process described above would be an optimal solution under different point of view:
 \begin{enumerate}
@@ -873,14 +875,14 @@ The process described above would be an optimal solution under different point o
 \end{enumerate}
 It must be pointed out, tough, that results were not as precise as the expectations. Indeed, several function boundaries identified by Nucleus in  malware samples were not just inaccurate, most of them were rather completely wrong.\\
 
-While a binary computer program can have multi-entry functions, it is not possible to find functions overlapping with each other. For several binary files, we noticed that Nucleus produced such wide intervals to incorporate a number of other intervals inside. Besides, the high number of these imprecisions, leads to an incremental loss of accuracy. This is the main reason that led to abandon the idea of adopting Nucleus in DTA-Tracker.
+While a binary computer program can have multi-entry functions, it is not possible to find functions overlapping with each other. For several binary files, we noticed that Nucleus produced such wide intervals to incorporate a number of other intervals inside. Besides, the high number of these imprecisions, leads to an incremental loss of accuracy. This is the main reason that led to abandon the idea of adopting Nucleus in {\sf DTA-Tracker}.
 
 Furthermore, there are some limitations inherently static analysis which make it ineffective when applied to certain malware families. For instance, if Nucleus is adopted to identify function boundaries for a packed malware, the reminder part of the analysis would be meaningless. When the malware unpacks itself, it unveils a completely new binary executable with a different layout. At this point, the information gathered statically (i.e., before the execution) would not represent the one available at run time, so a preliminary unpacking analysis would be required.
 
 \subsubsection{Shadow Call Stack}
 If it is not possible to find a solution through static analysis, the only remaining way is adopting a dynamic approach. Specifically, instead of relying on a static analysis step to identify function boundaries, the routines are directly recognized during dynamic analysis. This is possible by introducing a new data structure and a completely different approach from the previous one.\\
 
-The \textit{call stack} is a data structure which allows to know, during the execution of a program, which are the active subroutines at any given time~\cite{de2018now}. Therefore, the purpose of the shadow call stack is different from the one of the real stack data structure maintained by the OS. The only common point between the operating system stack and the call stack kept by DTA-Tracker, stays in the fact that is per-thread, dynamically allocated at thread creation time and dismantle when the thread terminates. Each of these call stacks is kept inside a larger data structure which, in turn, is indexed by an id uniquely assigned by Pin at thread creation time.
+The \textit{call stack} is a data structure which allows to know, during the execution of a program, which are the active subroutines at any given time~\cite{de2018now}. Therefore, the purpose of the shadow call stack is different from the one of the real stack data structure maintained by the OS. The only common point between the operating system stack and the call stack kept by {\sf DTA-Tracker}, stays in the fact that is per-thread, dynamically allocated at thread creation time and dismantle when the thread terminates. Each of these call stacks is kept inside a larger data structure which, in turn, is indexed by an id uniquely assigned by Pin at thread creation time.
 
 \begin{lstlisting} [language={C++}, label={lst:shadowstack}, caption={Shadow call stack related data structures.}]
 /*Data structure identifying a single call stack frame.*/
@@ -907,7 +909,7 @@ typedef struct callStackThread_t {
 \noindent
 As it is possible to see from the code snippet in Listing~\ref{lst:shadowstack}, each subroutine can be identified by a triple plus another value which we are going to discuss later in this section. Each time a new function or system call is invoked by the program under analysis, a \texttt{callStackFrameP} is created and pushed on top of \texttt{callStack}.
 
-DTA-Tracker understands that the application is invoking a function or system call, by using DBI to instrument each \texttt{call} instruction encountered during the program execution. Thanks to the unlimited features offered by Pin, an analysis function is injected right before the execution of the \texttt{call} instruction to push a new entry on the shadow call stack, storing the following information:
+{\sf DTA-Tracker} understands that the application is invoking a function or system call, by using DBI to instrument each \texttt{call} instruction encountered during the program execution. Thanks to the unlimited features offered by Pin, an analysis function is injected right before the execution of the \texttt{call} instruction to push a new entry on the shadow call stack, storing the following information:
 \begin{itemize}
 \item The target address corresponding to the entry point of the invoked function or system call;
 \item The value of the stack pointer;
@@ -918,14 +920,14 @@ Nonetheless, when inserting a new frame, the call stack could be in an inconsist
 \item If the stack pointer value of the top call-stack frame and the new frame is the same and both return addresses match, then it is possible that the the malware performed a \textit{tail call}\footnote{When a binary is compiled using an high optimization level, it is possible that the compiler uses a \texttt{jmp} instructions to directly jump to the next routine avoiding the "overhead" introduced by another sequence of \texttt{call}-\texttt{ret} instructions.}. In such case, no frame should be pushed. This technique is so much adopted by malicious code that it is worthwhile to check for this situation;
 \item If we are not in the case described by the previous point, what should be checked before pushing the new frame, is the presence of stale frames in the stack (i.e., frames for which the respective subroutines have already returned). For a frame to be stale, it must have an higher stack pointer value with respect to the one of the new frame\footnote{In all OS the stack grows from higher address to smaller ones thus, when a function returns, the stack pointer is increased.}. Therefore, the whole call stack is inspected to pop every stale frame and, in the end, the new one can be pushed.  
 \end{enumerate}
-Furthermore, DTA-Tracker instruments every \texttt{ret} instruction with a callback that properly updates the shadow call stack when a routine terminates. Given the target address (i.e., where the \texttt{ret} is going to fall back) and the stack pointer value at that moment, the analysis routine works on two steps:
+Furthermore, {\sf DTA-Tracker} instruments every \texttt{ret} instruction with a callback that properly updates the shadow call stack when a routine terminates. Given the target address (i.e., where the \texttt{ret} is going to fall back) and the stack pointer value at that moment, the analysis routine works on two steps:
 \begin{enumerate}
 \item It iterates over the call stack from top to bottom, to find the most recent frame whose return address matches the one of the \texttt{ret} instruction and whose stack pointer matches the current one;
 \item If a frame which meets the previous statement exists, then all the frames between the top stack and one just found (included) are deleted. 
 \end{enumerate}
 Even though handling corner cases described above can result in a slight overhead, not managing them at all may lead to additive inaccuracies which, at the end of the analysis, produce erroneous results.\\
 
-Leveraging the shadow call stack, DTA-Tracker defines a \textit{context} as the set of frames contained in the call stack at a specific time~\cite{hcct}. When a new frame is about to be pushed, the correspondent context is computed by xor-ing its return address with the top frame context. The \texttt{context} variable in listing \ref{lst:shadowstack}, is used to assign a unique identifier to each context in order to understand when during the execution, tainted data is introduced (\autoref{subsec:produceridentification}).
+Leveraging the shadow call stack, {\sf DTA-Tracker} defines a \textit{context} as the set of frames contained in the call stack at a specific time~\cite{hcct}. When a new frame is about to be pushed, the correspondent context is computed by xor-ing its return address with the top frame context. The \texttt{context} variable in listing \ref{lst:shadowstack}, is used to assign a unique identifier to each context in order to understand when during the execution, tainted data is introduced (\autoref{subsec:produceridentification}).
 
 \begin{figure}[h!]
 \centering
@@ -935,27 +937,27 @@ Leveraging the shadow call stack, DTA-Tracker defines a \textit{context} as the 
 \newpage
 \subsection{Identifying Taint Sinks}
 \label{subsec:taintsinks}
-In the introduction of \autoref{ch:dta-tracker} we already explained that the burden of managing the whole taint propagation logic was left to the libdft library. Thus, having reached this point, what it is missing is the DTA-Tracker, is the definition of a taint sink.\\
+In the introduction of \autoref{ch:dta-tracker} we already explained that the burden of managing the whole taint propagation logic was left to the libdft library. Thus, having reached this point, what it is missing is the {\sf DTA-Tracker}, is the definition of a taint sink.\\
 
 The information contained inside the shadow call stack is necessary to distinguish all the different routines invoked by the malware during its entire execution. As any other computer program, to purse its goal the malware will surely make use of APIs and system calls exported by Windows DLLs, which are consequently tracked and pushed into the shadow call stack. While the knowledge of APIs and system calls name would be informative, most of the time it is only important know that they "do something" with tainted data.
 
-As already mentioned in the discussion above, the ultimate purpose of the DTA-Tracker is to give to the analyst an overview about which malware instructions involve tainted data in their computations. This choice was done for mainly two reasons:
+As already mentioned in the discussion above, the ultimate purpose of the {\sf DTA-Tracker} is to give to the analyst an overview about which malware instructions involve tainted data in their computations. This choice was done for mainly two reasons:
 \begin{enumerate}
 \item The first one concerns the amount of information produced by the tool. The majority of native APIs and system calls are just stubs that, behind the mask, call different other functions to accomplish their goal. If a malware asks for any OS facility (e.g., API, system call), it is because it will use the output of that request; thus, in case this output contains tainted data, in the end it will be used inside malware routines;
 \item The second reason shares similarities with the one above but, at the same time, it is completely different. Keeping track of which native function handles tainted data, would go against the initial objective of the tool, which focuses only on the malware. Indeed, at the end of the day, what a malware analyst wants to know, are which malware routine operate on tainted data and not those from Windows DLLs.
 \end{enumerate}
-Hence, DTA-Tracker identifies as sinks any movement and comparison instruction which involve tainted data. Most notably, the additional instrumented instructions are:
+Hence, {\sf DTA-Tracker} identifies as sinks any movement and comparison instruction which involve tainted data. Most notably, the additional instrumented instructions are:
 \begin{itemize}
 \item \texttt{mov}. The \texttt{mov} instruction is the most adopted by compilers to implement data transfer. This feature makes this instruction the perfect candidate to model the malware intent to transfer data either between memory locations and register or also between two memory locations\footnote{Even though the x$86$ instruction set does not provide a \texttt{mov} instruction with two memory operands, it is possible to achieve the same result by concatenating two of them: \texttt{mov reg\_1, mem\_addr\_1}, \texttt{mov mem\_addr\_2, reg\_1}.};
 \item \texttt{cmp} and \texttt{test}. Whilst \texttt{mov} is the most popular instruction (at least for compiler-generated code) to implement data transfer operations, \texttt{test} and \texttt{cmp} instructions are the most used to implement checks about the content of registers or memory addresses. For this reason, it is fair to imagine that malware checks on tainted data are compiled to one of these two instructions;
 \item \texttt{sub}. The point of tracking also the \texttt{sub} instruction, is because even if it is categorized as an arithmetical instruction, it can still be maliciously used to compare two operands. Indeed, as described in the Intel Developer's Manual~\cite{intel2018intel}, the \texttt{cmp} comparison is performed by subtracting the second operand from the first one (setting the \texttt{eflags} accordingly).\\
-To distinguish the two cases when it is used as a normal arithmetic instruction, from when it is possibly employed to perform comparisons, a little expedient was introduced. Usually, when a computer program checks the value of a specific object, is because the control flow should be altered based precisely on its value. Depending on the result of a comparison, the x$86$ instruction set allows to change the control flow of a program by setting precise flags in the \texttt{eflags} register and using \textit{conditional jump} instructions. Thus, DTA-Tracker includes \texttt{sub} instructions in the set of tainted sinks only if between that \texttt{sub} and a conditional jump, there is no other \texttt{cmp} or \texttt{test} instruction which can alter the control flow of the program.
+To distinguish the two cases when it is used as a normal arithmetic instruction, from when it is possibly employed to perform comparisons, a little expedient was introduced. Usually, when a computer program checks the value of a specific object, is because the control flow should be altered based precisely on its value. Depending on the result of a comparison, the x$86$ instruction set allows to change the control flow of a program by setting precise flags in the \texttt{eflags} register and using \textit{conditional jump} instructions. Thus, {\sf DTA-Tracker} includes \texttt{sub} instructions in the set of tainted sinks only if between that \texttt{sub} and a conditional jump, there is no other \texttt{cmp} or \texttt{test} instruction which can alter the control flow of the program.
 \end{itemize}
 
 \subsection{Output from First Macro-Phase}
 All the information gathered from the dynamic analysis is flushed into different files. When writing to a file, better performances can be achieved by implementing a buffering mechanism: instead of directly writing information to the file time by time, a buffer could be used to hold these information up to a fixed size. Once the buffer reaches its limit, it can be flushed into the file.
 
-The performance boost from the buffering technique can be significant but it is not always applicable, especially when analysing malware. Indeed, it is not always obvious that a malicious computer program terminates just like any other commodity software. This is the reason why DTA-Tracker flushes data directly to the file whenever new information is available.\\
+The performance boost from the buffering technique can be significant but it is not always applicable, especially when analysing malware. Indeed, it is not always obvious that a malicious computer program terminates just like any other commodity software. This is the reason why {\sf DTA-Tracker} flushes data directly to the file whenever new information is available.\\
 
 The first macro-phase produces 4 files, each one containing different information needed in the second phase to produce the final product of DTA-Tracer. The content of each file is the following:
 \begin{itemize}
@@ -968,16 +970,16 @@ The first macro-phase produces 4 files, each one containing different informatio
 \section{Offline component}
 At the time when the the files described above are created, the task of the dynamic analysis component is accomplished. Nevertheless, leaving them as they are, is anything but helpful. Indeed, each file contains only a subset of information related to the analysis of the malware, which need to be complemented with all the details contained in the reminder files.
 
-One of the major disadvantages of dynamic data flow tracking, is the significant performance overhead introduced by the taint propagation logic: in order to propagate taint, libdft has to carefully inspect each instruction and then inject the appropriate analysis technique. In addition to the instructions instrumented by the library, DTA-Tracker defines its own instrumentation routines which insert analysis functions to fulfill the specific task.\\
+One of the major disadvantages of dynamic data flow tracking, is the significant performance overhead introduced by the taint propagation logic: in order to propagate taint, libdft has to carefully inspect each instruction and then inject the appropriate analysis technique. In addition to the instructions instrumented by the library, {\sf DTA-Tracker} defines its own instrumentation routines which insert analysis functions to fulfill the specific task.\\
 
-Deciding to carry out the analysis whenever new data is available (i.e., on the fly) would degrade performances even more. This is one of the main reasons why DTA-Tracker performs the analysis of gathered information {\em offline}. Hence, the objective of the second macro-phase is to give a shape to these raw data, producing the final artifact of DTA-Tracker.
+Deciding to carry out the analysis whenever new data is available (i.e., on the fly) would degrade performances even more. This is one of the main reasons why {\sf DTA-Tracker} performs the analysis of gathered information {\em offline}. Hence, the objective of the second macro-phase is to give a shape to these raw data, producing the final artifact of {\sf DTA-Tracker}.
 
 \subsection{Producer-Consumer Graph}
 It is of fundamental importance that the output of any automatic tool, whether it is static or dynamic, is as explicative as possible. In the same way, a tool which provides detailed information but scattered among different files, would end up being ineffective.\\
 
-The idea we had in mind when designing the final output of DTA-Tracker, was to provide the analyst with fine-grained information maintaining at the same time, compactness of data and avoiding the risk of providing scattered results.
+The idea we had in mind when designing the final output of {\sf DTA-Tracker}, was to provide the analyst with fine-grained information maintaining at the same time, compactness of data and avoiding the risk of providing scattered results.
 
-The \textit{producer-consumer paradigm} imprinted in DTA-Tracker, brings together in a single item, all the elements characterising the taint analysis technique, namely: taint sources, taint sinks and of course, tainted data. The name of this data structure is the \textit{producer-consumer graph} and it is characterized by three building blocks:
+The \textit{producer-consumer paradigm} imprinted in {\sf DTA-Tracker}, brings together in a single item, all the elements characterising the taint analysis technique, namely: taint sources, taint sinks and of course, tainted data. The name of this data structure is the \textit{producer-consumer graph} and it is characterized by three building blocks:
 \begin{itemize}
 \item \textit{Consumers}. A consumer is any malware instruction which involved tainted data in its input operands. We already discussed in \autoref{subsec:taintsinks} what it means for tainted data to be manipulated by a malware routine. Therefore, referring to the nomenclature used in the context of taint analysis, a consumer is nothing but a taint sink;
 \item \textit{Producers}. The producer can be seen as the responsible for having caused data to become tainted. Always referring to the taint analysis jargon, in some instances a producer is exactly the source of the tainted flow. Cases in which the producer cannot be identified as the taint source of a flow, are going to be discussed in \autoref{subsec:produceridentification};
@@ -999,9 +1001,9 @@ If consumers, producers, and chunks define nodes of the graph, the relationships
 \end{figure}
 
 \subsection{Consumer-Driven Approach}
-The purpose of DTA-Tracker is to provide an effective and reliable tool which allows the analyst to focus attention on specific portions of the malicious software. According to the original design, the main actors are always malware instructions which manipulate data, that is, the consumers. Hence, for this last reason, the process of building the producer-consumer graph is said to be \textit{consumer-driven}.\\
+The purpose of {\sf DTA-Tracker} is to provide an effective and reliable tool which allows the analyst to focus attention on specific portions of the malicious software. According to the original design, the main actors are always malware instructions which manipulate data, that is, the consumers. Hence, for this last reason, the process of building the producer-consumer graph is said to be \textit{consumer-driven}.\\
 
-The first step involves loading the set of consumers identified by the dynamic analysis component of DTA-Tracker during the first macro-phase. Thus, the file \texttt{<exe-name>\_memoryaccesses.txt} is parsed line-by-line to create the list of all consumers as well as the set of all memory addresses accessed (e.g, read, written) by each of them.
+The first step involves loading the set of consumers identified by the dynamic analysis component of {\sf DTA-Tracker} during the first macro-phase. Thus, the file \texttt{<exe-name>\_memoryaccesses.txt} is parsed line-by-line to create the list of all consumers as well as the set of all memory addresses accessed (e.g, read, written) by each of them.
 
 \begin{figure}[h!]
 \centering
@@ -1017,10 +1019,10 @@ The consumer node consists in the instruction address which manipulated a chunk 
 %\newpage
 \subsection{Chunk Identification}
 \label{subsec:chunkidentification}
-In the first macro-phase DTA-Tracker records in the memory accesses file, information about instructions which accessed tainted memory addresses. This implies that the dynamic component is aware only of single addresses accessed by the malware. Indeed, at the time when a function accesses a memory location, there is no easy way to understand the memory buffer to which that address belongs to.
+In the first macro-phase {\sf DTA-Tracker} records in the memory accesses file, information about instructions which accessed tainted memory addresses. This implies that the dynamic component is aware only of single addresses accessed by the malware. Indeed, at the time when a function accesses a memory location, there is no easy way to understand the memory buffer to which that address belongs to.
 
 \smallskip
-Therefore, DTA-Tracker defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to BluePill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint its output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.
+Therefore, {\sf DTA-Tracker} defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to BluePill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint its output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.
 While these addresses above are full-fledged chunks, it is also true that they are not the only ones identifiable during the whole program execution. The reason why they are not the only possible chunks, is due to data movement operations. One can think, for example, to a malware routine that just retrieves the data of interest and transfers them to another function which then completes the job. This scenario can, of course, be modeled differently depending both on the compiler and on the optimization level but, in most cases, it will involve more than one chunk.
 
 Hence, one of the tasks of this phase, is to identify chunks\footnote{Chunks constructed in this way are referred to as \textit{type\_2 chunks}.} (e.g, \texttt{ImageBaseArray[]}) resulting from situations like the one in listing \ref{lst:type2chunks}.
@@ -1049,7 +1051,7 @@ int main(int argc, char **argv) {
 \end{lstlisting}
 
 \noindent
-The technique through which this is possible, requires the data stored into the tainted trace file. Each time that DTA-Tracker finds a tainted instruction, apart from logging information like the instruction type and address, it records:
+The technique through which this is possible, requires the data stored into the tainted trace file. Each time that {\sf DTA-Tracker} finds a tainted instruction, apart from logging information like the instruction type and address, it records:
 \begin{enumerate}
 \item The memory location accessed by the instruction;
 \item Whether the address is used as destination or source operand. This information is particularly important when defining producers (\autoref{subsec:produceridentification};)
@@ -1085,7 +1087,7 @@ The producer is defined as the entity responsible for introducing a chunk of tai
 The first solution that comes into mind, consists in defining a chunk producer as the \textit{allocator} of the memory chunk. There are several ways in which this task can be accomplished but since the tool is implemented through a DBI framework, we decided to instrument functions responsible for memory creation. Specifically, the first instrumented routines were those related to heap management, namely, \texttt{HeapCreate()} and \texttt{HeapDestroy()}. These two user-level APIs are exposed in the \texttt{heapapi.h} Windows header~\cite{heapapih77:online} and are used respectively to create and release memory for a heap object. However, by instrumenting these routines, we were not able to reach our goal mainly for two reasons:
 \begin{itemize}
 \item The first one depends on how Intel Pin works. In particular, when Pin is injected in the input binary, some events, just like the creation of the default heap for the process, are missed. This causes the impossibility to track heap chunks allocated within the default heap;
-\item The second reason is that the two APIs are not the only way in which requesting heap creation or destruction. They are only user-level wrapper functions, which internally use Windows low-level runtime routines to carry out the task (i.e., \texttt{RtlCreateHeap()} and \texttt{RtlDestroyHeap()} respectively). Especially in malware, it is possible that low-level functions are used in place of user-level ones as they offer more control over operations.
+\item The second reason is that the two APIs are not the only way in which requesting heap creation or destruction. They are only user-level wrapper functions, which internally use Windows low-level routines to carry out the task (i.e., \texttt{RtlCreateHeap()} and \texttt{RtlDestroyHeap()} respectively). Especially in malware, it is possible that low-level functions are used in place of user-level ones as they offer more control over operations.
 \end{itemize} 
 
 \clearpage
@@ -1127,13 +1129,13 @@ int main() {
 \end{lstlisting}
 
 \noindent
-Based on the reasoning above, we decided to define a chunk producer through a completely different approach. DTA-Tracker defines three different type of producers where the first one is identified by the dynamic component and the other two can be inferred only in the offline analysis.
+Based on the reasoning above, we decided to define a chunk producer through a completely different approach. {\sf DTA-Tracker} defines three different type of producers where the first one is identified by the dynamic component and the other two can be inferred only in the offline analysis.
 
-Belong to the first category of producers all the taint sources which are given input to DTA-Tracker by the analyst. Whenever a BluePill hook related to a taint source is triggered, DTA-Tracker writes down in the tainted regions file the name of the hook as well as the set of tainted chunks. This is exactly how the offline component can identify producers of the first type. If a chunk accessed by a consumer, is among these previously tainted by a tainted source, then that source becomes the producer of the chunk. Following this approach, for each chunk in the graph already connected to a consumer, we add a \textit{produces} edge if it was produced by a taint source. This category of producers node are represented with a pair consisting of hook name and context when the tainted chunks were produced.\\
+Belong to the first category of producers all the taint sources which are given input to {\sf DTA-Tracker} by the analyst. Whenever a BluePill hook related to a taint source is triggered, {\sf DTA-Tracker} writes down in the tainted regions file the name of the hook as well as the set of tainted chunks. This is exactly how the offline component can identify producers of the first type. If a chunk accessed by a consumer, is among these previously tainted by a tainted source, then that source becomes the producer of the chunk. Following this approach, for each chunk in the graph already connected to a consumer, we add a \textit{produces} edge if it was produced by a taint source. This category of producers node are represented with a pair consisting of hook name and context when the tainted chunks were produced.\\
 
-However, it is still possible to have chunks which do not have a \textit{produces} relationship with any producer: it is the case of chunks which were created due to data movement operations. The most reasonable solution would be searching, in the trace file, for the instruction which caused a memory location to be tainted through write operations. Actually, this is what DTA-Tracker does:
+However, it is still possible to have chunks which do not have a \textit{produces} relationship with any producer: it is the case of chunks which were created due to data movement operations. The most reasonable solution would be searching, in the trace file, for the instruction which caused a memory location to be tainted through write operations. Actually, this is what {\sf DTA-Tracker} does:
 \begin{enumerate}
-\item It parses the file, searching for instructions which overwrite memory locations. Given the set of x$86$ instructions instrumented by the tool (see \autoref{subsec:taintsinks}), the only one\footnote{We want to remind that DTA-Tracker considers \texttt{sub} instructions exactly like \texttt{cmp}.} which implement this behaviour are \texttt{mov} instructions with a memory location as destination operand;
+\item It parses the file, searching for instructions which overwrite memory locations. Given the set of x$86$ instructions instrumented by the tool (see \autoref{subsec:taintsinks}), the only one\footnote{We want to remind that {\sf DTA-Tracker} considers \texttt{sub} instructions exactly like \texttt{cmp}.} which implement this behaviour are \texttt{mov} instructions with a memory location as destination operand;
 \item For each such memory address, the tool retrieves the last context where it was overwritten. 
 \end{enumerate}
 At this point, it is possible to use these information to add the remaining producers to the graph. Specifically, for each memory address from $2.$, if the corresponding membership chunk is connected only to a consumer, then a \textit{produces} edge is added between the chunk and the respective context which acts as producer node in the graph.
@@ -1143,19 +1145,19 @@ The heuristic described above allows us to find the majority of producers for ch
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.425]{images/dtatracker6}
-\caption{In the last step, DTA-Tracker identifies all the producers, adding \textit{produce} edges between them and the correspondent chunks.}
+\caption{In the last step, {\sf DTA-Tracker} identifies all the producers, adding \textit{produce} edges between them and the correspondent chunks.}
 \end{figure}
 
 \section{Preliminary Experimental Results}
 \label{sec:evaluations}
-DTA-Tracker can be quite helpful as one of the preliminary steps before starting the analysis, allowing the analyst to save time during malware dissection.
+{\sf DTA-Tracker} can be quite helpful as one of the preliminary steps before starting the analysis, allowing the analyst to save time during malware dissection.
 
 Being implemented on top of BluePill, we tested the tool on different malicious samples known to expose evasive behaviours. Specifically, the experimental evaluations presented below, are the result of the analysis performed on Furtim\footnote{\url{https://www.sentinelone.com/blog/sfg-furtims-parent/}.}, a malware sample known to be highly evasive thanks to a large number of assorted techniques.
 
 \subsection{Approach}
 As explained in \autoref{subsec:identifyingtaintsources}, there are several ways to identify taint sources. For this use-case in particular, we performed a preliminary run of BluePill to discover the set of APIs and system calls leveraged by the sample. At this point, we decided to focus on a subset of these calls assigning to each of them a different colour. There is not any general rule for choosing the set of taint sources nor for assigning them a colour rather, it is up to the analyst who decides what should be tainted. Moreover, depending on the output of the tool, the analyst can decide either to change the set of taint sources or focusing on a specific one, taking advantage of BluePill feature to selectively switch-on and off the countermeasure of each hook.
 
-To provide few examples in which DTA-Tracker can be helpful, we chose the following set of taint sources:
+To provide few examples in which {\sf DTA-Tracker} can be helpful, we chose the following set of taint sources:
 \begin{itemize}
 \item \texttt{NtQueryAttributesFile} tainted with colour \texttt{0x1};
 \item \texttt{cpuid} tainted with colour \texttt{0x2};
@@ -1168,7 +1170,7 @@ To provide few examples in which DTA-Tracker can be helpful, we chose the follow
 \end{itemize}
 \newpage
 \subsection{Results}
-Running DTA-Tracker with the previously mentioned taint sources and enabling their respective countermeasures, the originated producer-consumer graph is the following:\\
+Running {\sf DTA-Tracker} with the previously mentioned taint sources and enabling their respective countermeasures, the originated producer-consumer graph is the following:\\
 
 \begin{figure}[h!]
 \centering%scale=.43
@@ -1184,7 +1186,7 @@ By looking at the figure, the graph can be divided into three logical levels:
 \item The middle layer is represented by the tainted memory chunks;
 \item The lowest level contains the consumers.
 \end{itemize}
-The producer-consumer graph precisely represents the original goal of DTA-Tracker: provide the analyst with fine-grained information that highlight the interaction (modeled through the producer-consumer paradigm) between sample and data thus, allowing him to save time during dissection.
+The producer-consumer graph precisely represents the original goal of {\sf DTA-Tracker}: provide the analyst with fine-grained information that highlight the interaction (modeled through the producer-consumer paradigm) between sample and data thus, allowing him to save time during dissection.
 
 Furthermore, we tried to switch off different hooks and see whether the producer-consumer scheme could be of any help to the analyst. Specifically, we disabled the countermeasures of two hooks: the first one related to \texttt{NtQuerySystemInformation} with input flag \texttt{SystemProcessInformation} and the other one is the countermeasure of \texttt{GetAdaptersInfo}.
 
@@ -1199,11 +1201,11 @@ The countermeasure present in \texttt{NtQuerySystemInformation} with input flag 
 \end{figure}
 
 \noindent
-When a producer creates a number of tainted chunks exceeding a threshold (i.e., 10), DTA-Tracker groups them into a single larger chunk. Although most of the graph is exactly the same as the one in Figure \autoref{fig:eval1}, there is divergence caused by the lack of a countermeasure in the \texttt{NtQuerySystemInformation} hook. Indeed, while in Figure \autoref{fig:eval1} chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7} were grouped into a bigger range because exceeding the threshold, in this case they give precious information for a future dissection. In fact, the graph describes the exact point in the aforementioned array, where the evasion took place.
+When a producer creates a number of tainted chunks exceeding a threshold (i.e., 10), {\sf DTA-Tracker} groups them into a single larger chunk. Although most of the graph is exactly the same as the one in Figure \autoref{fig:eval1}, there is divergence caused by the lack of a countermeasure in the \texttt{NtQuerySystemInformation} hook. Indeed, while in Figure \autoref{fig:eval1} chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7} were grouped into a bigger range because exceeding the threshold, in this case they give precious information for a future dissection. In fact, the graph describes the exact point in the aforementioned array, where the evasion took place.
  
 Knowing that, the analyst can for example, place a breakpoint close to the instruction identified by the consumer (looking for a possible loop pattern) and step-over as many times as the number of chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7}.\\
 
-Lastly we re-enabled the countermeasure of \texttt{NtQuerySystemInformation} while disabling the one for \texttt{GetAdaptersInfo}. This latter function retrieves information on computer adapters which are often used by malware authors to detect hypervisors and virtual machines. The result produced by DTA-Tracker under these settings, is the following producer-consumer graph:
+Lastly we re-enabled the countermeasure of \texttt{NtQuerySystemInformation} while disabling the one for \texttt{GetAdaptersInfo}. This latter function retrieves information on computer adapters which are often used by malware authors to detect hypervisors and virtual machines. The result produced by {\sf DTA-Tracker} under these settings, is the following producer-consumer graph:
 
 Let us focus on the divergence caused by switching-off the countermeasure in \texttt{GetAdaptersInfo} hook. In particular, it is possible to notice two differences: there are fewer consumers and some of them were not present in the first run. In this case, the analyst can focus on the instruction sequence that lead to the execution of these latter consumers Figure~\ref{fig:eval1} and which is probably the responsible of the premature termination.
 
@@ -1215,32 +1217,33 @@ Let us focus on the divergence caused by switching-off the countermeasure in \te
 \end{figure}
 
 \noindent
-In fact, we debugged the application following the information provided by DTA-Tracker and we discovered that the two diverging instructions check whether the second and third byte of the network adapter MAC address match with the default ones used in VirtualBox VM (\texttt{00} and \texttt{27} respectively). In this direction, DTA-Tracker is quite useful in situations where the sample presents different instructions sequences depending on different environmental checks.
+In fact, we debugged the application following the information provided by {\sf DTA-Tracker} and we discovered that the two diverging instructions check whether the second and third byte of the network adapter MAC address match with the default ones used in VirtualBox VM (\texttt{00} and \texttt{27} respectively). In this direction, {\sf DTA-Tracker} is quite useful in situations where the sample presents different instructions sequences depending on different environmental checks.
 
 \chapter{Conclusion}
 \label{ch:futureworks}
 Because of the possibility for a malware sample to hide implementation details through obfuscation and packaging techniques, static analysis tools are often useless. To remedy this issue, effective automatic dynamic analysis tools and procedures should be used to extract behavioural malware profiles. Nonetheless, several automatic tools fail in unveiling distinctive features of malicious software due to the creativity of malware authors in devising new methods for slipping through anti-analysis countermeasures. This limitation often forces analysts to resort to manual intervention from the beginning of analysis. Malware analysts often take a long time to manually dissect binaries, especially due to the lack of a method to identify those slices characterising the executable.\\
 
-We decided to develop DTA-Tracker to avoid inspecting each single instruction of the executable, but providing directions on where to proceed. Leveraging the number of function and system call hooks embedded in BluePill, it makes possible possible to selectively taint the output of different calls. Using a consumer-driven approach, it allows to have a view of program slices where tainted memory is involved in data movement and comparison operations, emphasising the relevant instructions. Moreover, through information collected during the dynamic analysis phase and using reasonable heuristics, the tool provides calling context details about where tainted data originated. Finally, all this knowledge is organized according to a scheme that, as far as we know, had never been applied for this purpose, that is, the producer-consumer graph.
+We decided to develop {\sf DTA-Tracker} to avoid inspecting each single instruction of the executable, but providing directions on where to proceed. Leveraging the number of function and system call hooks embedded in BluePill, it makes possible possible to selectively taint the output of different calls. Using a consumer-driven approach, it allows to have a view of program slices where tainted memory is involved in data movement and comparison operations, emphasising the relevant instructions. Moreover, through information collected during the dynamic analysis phase and using reasonable heuristics, the tool provides calling context details about where tainted data originated. Finally, all this knowledge is organized according to a scheme that, as far as we know, had never been applied for this purpose, that is, the producer-consumer graph.
 
 \chapter*{Appendix}
 As explained in detail throughout the thesis, our tool consists of two components:
 \begin{enumerate}
-\item The first one is responsible of dynamically executing the binary and collecting the necessary data. In particular, the executable is run under BluePill which offers neutralisation countermeasures against evasive techniques while through libdft it is possible to carry out dynamic taint analysis on the binary;
+\item The first component is responsible of dynamically executing the binary and collecting the necessary data. In particular, the executable is run under BluePill which offers neutralisation countermeasures against evasive techniques while through libdft it is possible to carry out dynamic taint analysis on the binary;
 \item The second and last component comes to play after the dynamic analysis component finishes its task and it is in charge of building the producer-consumer graph. Due to the high performance overhead already introduced by the taint analysis technique, this last phase is carried out offline.
 \end{enumerate}
-Given this design, DTA-Tracker is implemented by two different programs each one responsible for one of the two phases.\\
+Given this design, {\sf DTA-Tracker} is implemented by two different programs, each one responsible for one of the two phases.\\
 
-In order to help the user to understand how to fully exploit the features of the tool, this appendix provides a step-by-step description on how to build the producer-consumer graphs presented on \iffalse insert evaluation chapter here\fi .\\
+In order to help the user to understand how to fully exploit the features of the tool, this appendix provides a step-by-step description on how to build the producer-consumer graphs presented in Section~\ref{sec:evaluations}.\\
 
-The first step consists in choosing the taint sources where to place taint seeds. To produce the graphs in \iffalse insert evaluation chapter here\fi we previously run the malware under BluePill to have the set of calls invoked by the program. The version of BluePill currently used by DTA-Tracker, produces a set of \texttt{.txt} file in \texttt{C:$\backslash\backslash$User-Directory$\backslash\backslash$Arancino} where to inspect function and system calls invoked by each thread spawned by the analysed malware. To produce the aforementioned text file, we can run BluePill through the following command line script.
+The first step consists in choosing the taint sources where to place taint seeds. To produce the graphs of Section~\ref{sec:evaluations} we first ran the malware under BluePill to have the set of (evasive) calls invoked by the program. The version of BluePill currently used by {\sf DTA-Tracker} produces a set of \texttt{.txt} files that log function and system calls (as well as low-level sequences like {\tt cpuid}) that are likely involved in evasive actions from any thread used by the analysed malware sample. To produce the aforementioned files, we ran BluePill with the following command line sequence:
 \begin{lstlisting} [language={bash}, caption={Command line script to run the binary sample named \texttt{furtim\_sample.exe} under BluePill.}]
 C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread 
 				   -antiev-swrite -antiev-ins -- 
 				   C:\Users\Riccardo\Documents\furtim_sample.exe
 \end{lstlisting}
 
-From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of DTA-Tracker. For the evaluations provided above, we run BluePill on Furtim malware and we chose the following set of tainted sources:
+\noindent
+From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of {\sf DTA-Tracker}. For the evaluations provided in Section~\ref{sec:evaluations}, we ran BluePill on Furtim malware and we chose the following set of tainted sources:
 \begin{itemize}
 \item \texttt{NtQueryAttributesFile}
 \item \texttt{cpuid}
@@ -1252,7 +1255,8 @@ From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it 
 \item \texttt{LoadLibraryW}
 \end{itemize}
 
-After having accurately chosen the set of calls whose output should be tainted, we need to give these preferences in input to DTA-Tracker. To do so, the tool reads a text file previously filled-up with the appropriate data. Specifically, the file must be named \texttt{colours.txt} and placed in the working directory of Intel Pin binary. Each line represents the binding between the hook of a function, system call or instruction and the corresponding taint seed through which colouring its output. The hook is identified through a number from $0$ to $255$ while the taint seed must be chosen from the following set: $\{1, 2, 4, 8, 16, 32, 64, 128\}$. To replicate the results provided in evaluation chapter, the content of \texttt{colours.txt} file should be exactly the following.
+\noindent
+After having accurately chosen the set of calls whose output should be tainted, we need to give these preferences in input to {\sf DTA-Tracker}. To do so, the tool reads a text file previously filled-up with the appropriate data. Specifically, the file must be named \texttt{colours.txt} and placed in the working directory of Intel Pin. Each line represents the binding between the hook of a function, system call, or special instruction and the corresponding taint seed for colouring its output. The hook is identified through a number from $0$ to $255$ while the taint seed must be chosen from the following set: $\{1, 2, 4, 8, 16, 32, 64, 128\}$. To replicate the results provided in the evaluation, the content of \texttt{colours.txt} file should be exactly the following:
 \begin{lstlisting} [language={TeX}, caption={Content of \texttt{colours.txt} file to replicate the same results presented in the evaluation chapter.}]
 1-2
 2-1
@@ -1269,7 +1273,8 @@ After having accurately chosen the set of calls whose output should be tainted, 
 %\caption{Example showing how each line of \texttt{colurs.txt} file should be formatted.}
 %\end{figure}
 
-Before actually starting the analysis, we can still take advantage of the features offered by BluePill to operate on the malware execution. As already explained in \iffalse section BluePill\fi , to neutralise malware evasion techniques, BluePill provides several hooks to functions, system calls and even x$86$ instructions for observing the behaviour of the malicious binary. Each countermeasure can be easily turned on and off based on what malware behaviour is being emphasised. The basic idea remains to study the interaction between the sample and tainted data to characterize the behaviour of the malware both in case of evasions and not. In order for DTA-Tracker to produce the first graph shown in the evaluations, all the countermeasures related to the aforementioned taint sources should be active.
+\noindent
+Before actually starting the analysis, we can still take advantage of the features offered by BluePill to operate on the malware execution. As already explained in \iffalse section BluePill\fi , to neutralise malware evasion techniques, BluePill provides several hooks to functions, system calls, and even x$86$ instructions for observing the behaviour of the malicious binary. Each countermeasure can be easily turned on and off based on what malware behaviour is being emphasised. The basic idea remains to study the interaction between the sample and tainted data to characterize the behaviour of the malware both in case of evasions and not. In order for {\sf DTA-Tracker} to produce the first graph shown in the evaluation, all the countermeasures related to the aforementioned taint sources should be active.
 \begin{lstlisting} [language={C++}, label={lst:hooks}, caption={List of taint sources.}]
 /*cpuid instruction as taint source*/
 VOID AssemblyHandler::patchCpuidExit(ADDRINT ip, CONTEXT *ctxt, ADDRINT cur_eip) {
@@ -1486,7 +1491,8 @@ VOID LoadLibraryWHook_exit(CONTEXT *ctx) {
 	}
 }
 \end{lstlisting}
-As it is possible to see from Listing \ref{lst:hooks} there are common traits between the various hooks, starting from the presence of an \texttt{if} statement involving an hashmap called \texttt{colours\_map}. This latter is exactly the data structure containing the mapping between hook ids and colours. Each time one of the hooks is triggered, the tool checks whether the respective id is contained within this map and, if it happens, the corresponding color (the \texttt{tag\_t col} variable) is employed as taint seed. The search operation is carried out by the line \texttt{(f = colours\_map.find(/*hook\_id*/)) != colours\_map.end()} where \texttt{hook\_id} should be substituted with the id corresponding to that hook. Moreover, performances offered by the \texttt{.find()} function on the hashmap, allow to search elements with $O(\log n)$ time complexity.\\
+As it is possible to see from Listing \ref{lst:hooks} there are common traits between the various hooks, starting from the presence of an \texttt{if} statement involving an hashmap called \texttt{colours\_map}. This latter is exactly the data structure containing the mapping between hook ids and colours. Each time one of the hooks is triggered, the tool checks whether the respective id is contained within this map and, if it happens, the corresponding color (the \texttt{tag\_t col} variable) is employed as taint seed. The search operation is carried out by the line \texttt{(f = colours\_map.find(/*hook\_id*/)) != colours\_map.end()} where \texttt{hook\_id} should be substituted with the id corresponding to that hook. Moreover, performances offered by the \texttt{.find()} function on the hashmap, allow to search elements with $O(\log n)$ time complexity.
+
 Within the aforementioned \texttt{if} statement, some hooks have a call to the \texttt{log\_hoo\-k\_id(string, thread\_ctx\_t*, ADDRINT, size\_t)} function. Specifically, only taint sources that write data in memory are equipped with this call. Indeed, its purpose is to populate the \texttt{taintedregions.txt} file with information about first type producers (\iffalse aggiungere reference chapter producers\fi), namely:
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item the name of the function, system call or instruction whose hook is triggered
@@ -1514,24 +1520,24 @@ The per-thread data structure is necessary to get libdft \texttt{vcpu} data stru
 \end{itemize}
 The user can easily add or remove any of these function calls depending on which portions of output data should be tainted: the more bytes are coloured and the more complete is the malware profile but, at the same time, the greater the amount of noise.\\
 
-At this point, when the dynamic analysis terminates, we can start building the producer-consumer graph. At first, the offline component takes all the three file generated in the previous phase to produce a file formatted using the \textit{DOT} graph description language\footnote{https://graphviz.org/doc/info/lang.html.}. To run the offline analysis, the files should be given in input in the following order:
+At this point, when the dynamic analysis terminates, we can start building the producer-consumer graph. At first, the offline component takes all the three file generated in the previous phase to produce a file formatted using the \textit{DOT} graph description language\footnote{\url{https://graphviz.org/doc/info/lang.html}.}. To run the offline analysis, the files should be given in input in the following order:
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item memory accesses file
 \item tainted regions 
 \item and lastly, the tainted trace file.\\
 \end{enumerate*}
-\begin{lstlisting} [language={bash}, caption={Command line script to run DTA-Tracker offline component.}, escapechar={§}]
+\begin{lstlisting} [language={bash}, caption={Command line script to run {\sf DTA-Tracker} offline component.}, escapechar={§}]
 C:\Users\Riccardo\Documents\ProducerConsumer > ProducerConsumer.exe furtim_sample_memoryaccesses.txt 
 		 furtim_sample_taintedregions.txt 
 		 furtim_sample_taintedtrace.txt
 \end{lstlisting}
-Various programs like \textit{Graphviz}\footnote{https://www.graphviz.org/.} can process DOT files to render them in a graphical form. From the working directory of Graphviz executable and running the command below, we can get the graphical representation of the producer-consumer graph relative to the file \texttt{furtim\_sample\_prodcons.gv} (the first picture shown in chapter \iffalse insert eval chapter here\fi ).
+Various programs like \textit{Graphviz}\footnote{\url{https://www.graphviz.org/}.} can process DOT files to render them in a graphical form. From the working directory of Graphviz executable and running the command below, we can get the graphical representation of the producer-consumer graph relative to the file \texttt{furtim\_sample\_prodcons.gv} (the first picture shown in chapter \iffalse insert eval chapter here\fi ).
 \begin{lstlisting} [language={bash}, caption={Command line script to generate the graphical representation of the producer-consumer graph relative to the previous analysis on Furtim.}]
 C:\Users\Riccardo\Documents\graphviz > dot.exe -Tpng -O furtim_sample_prodcons.gv
 \end{lstlisting}
 This is exactly the series of steps to follow in order to generate the graph in the figure \iffalse inserire autoref al primo grafo di evaluations\fi .\\ 
 
-Nonetheless, to build the other two graphs, we need to make changes to some of the hooks listed in \ref{lst:hooks}. Specifically, for the run where Furtim evades after inspecting the running processes in the machine, only the \texttt{NtQuerySystemInformati\-on(SystemProcessInformation)} hook should be changed like following.
+Nonetheless, to build the other two graphs, we need to make changes to some of the hooks listed in \ref{lst:hooks}. Specifically, for the run where Furtim evades after inspecting the running processes in the machine, only the \texttt{NtQuerySystemInformati\-on(SystemProcessInformation)} hook should be changed like in the following:
 \begin{lstlisting} [language={C++}, caption={NtQuerySystemInformation hook with SystemProcessInformation as second parameter, that leads to the first evasion of Furtim malware.}]
 ...
 if (sc->arg0 == SystemProcessInformation) {
@@ -1567,7 +1573,7 @@ if (sc->arg0 == SystemProcessInformation) {
 }
 ...
 \end{lstlisting}
-On the other hand, to replicate the last graph (\iffalse inserire autoref all'ultima figura\fi ) shown in \iffalse inserire autoref al chapter evaluations\fi , the previous hook should return to be as in \ref{lst:hooks} while the one related to \texttt{GetAdaptersInfo()} needs to be changed as follows.
+On the other hand, to replicate the last graph (\iffalse inserire autoref all'ultima figura\fi ) shown in \iffalse inserire autoref al chapter evaluations\fi , the previous hook should return to be as in \ref{lst:hooks} while the one related to \texttt{GetAdaptersInfo()} needs to be changed as follows:
 \begin{lstlisting} [language={C++}, caption={GetAdaptersInfo hook which leads to the evasion of Furtim malware.}]
 /*GetAdaptersInfo taint source*/
 VOID GetAdaptersInfoHookExit(ADDRINT ret, CONTEXT *ctx) {
@@ -1603,7 +1609,7 @@ To sum up, the whole process can be divided into the following steps:
 \item At first, the user should carefully choose which are the taint sources. This can be accomplished by performing a preliminary run of the sample under BluePill to see which countermeasures are triggered;
 \item Secondly, the hooks should be changed appropriately, depending on the malware behaviour to emphasise;
 \item The third step consists in filling-up the \texttt{colours.txt} file to reflect the choice of taint sources;
-\item Launch the dynamic analysis component of DTA-Tracker to produce the necessary files: the tainted trace, the memory accesses and the tainted regions files;
+\item Launch the dynamic analysis component of {\sf DTA-Tracker} to produce the necessary files: the tainted trace, the memory accesses and the tainted regions files;
 \item Through the offline component, generate the text file that describes the producer-consumer graph using the DOT graph description language;
 \item Lastly, the DOT file can be rendered in a graphical form using the Graphviz suite.
 \end{enumerate}
