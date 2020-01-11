@@ -29,6 +29,11 @@
 \usepackage{parcolumns}
 
 \newcommand{\source}[1]{\caption*{Source: {#1}} }
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
+\renewcommand{\chapterautorefname}{Chapter}
+\renewcommand{\lstlistingname}{Listing}
  
 \definecolor{codegreen}{rgb}{0,0.5,0}
 \definecolor{codegray}{rgb}{0.55, 0.57, 0.67}
@@ -193,7 +198,7 @@ These signatures are usually kept inside a large database and used by Intrusion 
 \end{figure}
 \newpage
 \noindent
-However, today's malware authors use different obfuscation techniques to conceal distinguishing figures of a malware and for this reason, anti-virus programs must adopt more 
+However, today's malware authors use different obfuscation techniques to conceal distinguishing features of a malware and for this reason, anti-virus programs must adopt more 
 sophisticated technology.\\
 
 Independently from how the final result is used, the goal of malware analysis remains always the same: determine the purpose and functionalities of a malware. Nevertheless, there is no straightforward way to carry out the dissection of a malware. Indeed, each malware analyst, has its own preferred tools and techniques which allow him to stand out in his job.
@@ -210,7 +215,7 @@ Despite the fact that there exist several tools and techniques to carry out the 
 \end{itemize}
 \item Dynamic analysis techniques examine the malware while it is running. Often static analysis reaches a dead-end due to the presence of techniques like obfuscation and packing. For this reason, the analyst can resort to executing the malware to have a more in-depth understanding of its behaviour. Just like the static approach, also dynamic analysis techniques can be categorized as basic and advanced.
 \begin{itemize}
-\item Basic dynamic analysis does not require any complete programming knowledge so, can be used to have an high-level understanding of malware behaviour. Diffing is one of the techniques falling into this category and consist in comparing the system state before and after malware execution (regshot\footnote{\url{http://www.winpenpack.com/main/download.php?view.1170}.} is a tool which makes possible to take a snapshot and later compare it with another one). Other techniques include monitoring API calls or also collecting system events (e.g., file creation, registry modification and more). Still, most of these techniques are not very effective and sometimes produce a disproportionate amount of false positives (just think to system event caused by all the services running in a Windows host);
+\item Basic dynamic analysis does not require any complete programming knowledge so, can be used to have a high-level understanding of malware behaviour. Diffing is one of the techniques falling into this category and consist in comparing the system state before and after malware execution (regshot\footnote{\url{http://www.winpenpack.com/main/download.php?view.1170}.} is a tool which makes possible to take a snapshot and later compare it with another one). Other techniques include monitoring API calls or also collecting system events (e.g., file creation, registry modification and more). Still, most of these techniques are not very effective and sometimes produce a disproportionate amount of false positives (just think to system event caused by all the services running in a Windows host);
 \item Advanced dynamic analysis focuses on malware internals rather than externally observable behaviours. This is possible by loading the binary into a debugger to examine the internal state of registers and memory locations. However, since debugging is time-consuming, it is often recommended to try all the previously described approaches and resort to advanced dynamic only as last chance.
 \end{itemize}
 \end{itemize}
@@ -223,7 +228,7 @@ Despite the fact that there exist several tools and techniques to carry out the 
 
 \newpage
 \noindent
-Static analysis is usually one of the first step to get an high-level understanding of what the malware does. Although it is useful, the second step consists in confirming these findings through dynamic analysis. Usually, this is exactly what a malware analyst does when facing a packed malware. Malware writers often decide to obfuscate their malicious software to make it more difficult for analysts to detect and analyse it. Packing manages to reach obfuscation by compressing or encrypting (part of) the malware and using a stub\footnote{When talking about packed software, a stub refers to the module implementing the decryption or decompression routine.} for decryption only when it is executed. For this reason, at first some basic static analysis tool is used to detect whether the malware is packed or not and then, through advanced dynamic analysis techniques, the malware can be unpacked.
+Static analysis is usually one of the first step to get a high-level understanding of what the malware does. Although it is useful, the second step consists in confirming these findings through dynamic analysis. Usually, this is exactly what a malware analyst does when facing a packed malware. Malware writers often decide to obfuscate their malicious software to make it more difficult for analysts to detect and analyse it. Packing manages to reach obfuscation by compressing or encrypting (part of) the malware and using a stub\footnote{When talking about packed software, a stub refers to the module implementing the decryption or decompression routine.} for decryption only when it is executed. For this reason, at first some basic static analysis tool is used to detect whether the malware is packed or not and then, through advanced dynamic analysis techniques, the malware can be unpacked.
 
 Therefore, a malware analysis session is not either static or dynamic rather, it consists of a combination of static and analysis techniques. Moreover, especially when dissecting the sample inside a debugger, the analyst must adopt a set of expedients to avoid the infection or limit the damage caused by the malware.
 
@@ -254,7 +259,7 @@ Depending on which feature they focus on, evasion techniques\footnote{Here, we r
 \item \textit{Environmental artifacts}. The most common evasive behaviours are based on fingerprinting the underlying environment. When an OS like Windows is installed into a virtual machine like Oracle VirtualBox, the latter will add and modify some guest OS settings in order to work properly. This include the creation of specific files or registry keys which include virtual machine identifiers (e.g., the string \texttt{VirtualBox}) in their names. Beyond files and registry keys, other artifacts include the number of running processes, the name of external devices (e.g., disk name) or even the username~\cite{lindorfer2011detecting};
 \item \textit{Timing attacks}. In the virtualisation context, reaching accurate timing simulation is challenging. Even though there exist several sophisticated attacks on this topic, malware usually adopt a very simple expedient: if executing a set of instructions takes longer than expected (e.g., in a non-virtualised system) then, it is likely that the system is virtualised. Although it might not seem so, also bare-metal systems can be targeted by timing attacks due to the overhead introduced by hardware instrumentation~\cite{spensky2016phi};
 \item \textit{CPU virtualisation evidence}. Assembly instructions which behave differently depending whether the CPU is virtualised or not, are known as \textit{red-pills}. Some virtual machine vendors choose not to virtualise specific instructions due to the loss of performance they would cause. This design choice entails that some instructions (e.g., \texttt{sidt}, \texttt{sgdt} and \texttt{sldt} on VMware) return different results when executed under virtual machines compared to when they are executed on native hardware;
-\item \textit{Reverse Turing tests}. The "reverse" version of the original Touring tests~\cite{turing2009computing}, can be used by a malware author to detect if they are running in a system used by a real human being~\cite{miramirkhani2017spotless}. Clearly, the reason behind these tests, is to spot when the malware is being executed under an automated analysis system (independently from being virtualised or bare-metal). These tests include: checking whether the mouse pointer remains motionless, checking the number of recently opened files or even examining how many software programs are installed in the system;
+\item \textit{Reverse Turing tests}. The ``reverse'' version of the original Touring tests~\cite{turing2009computing}, can be used by a malware author to detect if they are running in a system used by a real human being~\cite{miramirkhani2017spotless}. Clearly, the reason behind these tests, is to spot when the malware is being executed under an automated analysis system (independently from being virtualised or bare-metal). These tests include: checking whether the mouse pointer remains motionless, checking the number of recently opened files or even examining how many software programs are installed in the system;
 \item \textit{Network artifacts}. There exist a number of different tools which can help the analyst to track malware network activity. Most of them are nothing but network simulators\footnote{\url{https://www.fireeye.com/services/freeware/fakenet-ng.html}.} or emulators which intercept specific network traffic while providing network services (e.g., DNS services). However, there are some expedients which can be used by malware authors to detect possible simulators. One of the most commonly adopted technique consists in querying the DNS to resolve a fake domain: if the response is positive then the network is being emulated otherwise, probably it is not.
 \end{itemize}
 \begin{figure}[h!]
@@ -444,7 +449,7 @@ int example_2(int seed) {
 \end{lstlisting}
 
 \noindent
-Looking at the first example in Listing~\ref{lst:implictflow1}, if the variable which appears in the \texttt{if} condition is tainted, then we could also be interested in tainting the value of \texttt{res}. Although it may seem simple, only one variable within the body of a control flow statement is rare. Indeed, more often, within the body there can be several memory objects or even nested control flow statements (see the example in Listing~\ref{lst:implictflow2}).
+Looking at the first example in \autoref{lst:implictflow1}, if the variable which appears in the \texttt{if} condition is tainted, then we could also be interested in tainting the value of \texttt{res}. Although it may seem simple, only one variable within the body of a control flow statement is rare. Indeed, more often, within the body there can be several memory objects or even nested control flow statements (see the example in \autoref{lst:implictflow2}).
 
 Different research works~\cite{graa2012detecting}~\cite{clause2007dytan}~\cite{chen2011dynamic} tried to address the problem of control flow dependencies while performing dynamic taint analysis. The main ones and those that reached the greater success, use a combination of static and dynamic analysis:
 \begin{itemize}
@@ -472,7 +477,7 @@ In this context, the task of a malware analyst is similar to the one of a softwa
 In source code, the instrumentation fragment is injected right before the program is compiled~\cite{geimer2009generic}. Thanks to the availability of source code, the instrumentation process can place additional code not only at the level of functions but also at loop level or even at each statement. While instrumenting source code can be useful especially for testing and debugging purposes, it is impossible to have the source code of malicious software at hand. Thankfully, there exist tools which allow to carry out instrumentation on binary executables and depending on whether the instrumentation process is static or dynamic, we can distinguish between:
 \begin{itemize}
 \item \textit{Static binary instrumentation (SBI)} also known as \textit{binary rewriting}, carries our the instrumentation process by rewriting the input binary. Compared to other instrumentation approaches, it covers only the input binary file but at the same time, it has better performances~\cite{ermakov2017static};
-\item \textit{Dynamic binary instrumentation (DBI)} allows to instrument the program while it executes, modifying the binary on the fly. While in the static instrumentation it is possible to rewrite the file only once and run it multiple times, the dynamic approach needs to parse and modify the program at each execution, leading to an higher overhead.
+\item \textit{Dynamic binary instrumentation (DBI)} allows to instrument the program while it executes, modifying the binary on the fly. While in the static instrumentation it is possible to rewrite the file only once and run it multiple times, the dynamic approach needs to parse and modify the program at each execution, leading to a higher overhead.
 \end{itemize}
 
 \begin{figure}[t]
@@ -521,7 +526,7 @@ A DBI tool developed through Pin is called \textit{pintool}. According to its so
 \centering
 \includegraphics[scale=.7]{images/techn7}
 \caption{Software architecture of Pin DBI framework.}
-\source{"Pin: Building Customized Program Analysis Tools with Dynamic Instrumentation."}
+\source{``Pin: Building Customized Program Analysis Tools with Dynamic Instrumentation.''}
 \end{figure}
 \newpage
 
@@ -545,7 +550,7 @@ Although dynamic binary instrumentation is used in several software engineering 
 
 \section{BluePill}
 \label{sec:bluepill}
-In Section~\ref{subsec:analysisenvironment} we discussed the necessity for a safe environment where analysing malicious software. The ability to isolate malicious actions is, of course, a crucial feature which should characterise any analysis environment, even though it is not enough. Along with several other programs, the analysis system represents the tool which allows the analyst to go through malware dissection, thus it must be effective in doing so.
+In \autoref{subsec:analysisenvironment} we discussed the necessity for a safe environment where analysing malicious software. The ability to isolate malicious actions is, of course, a crucial feature which should characterise any analysis environment, even though it is not enough. Along with several other programs, the analysis system represents the tool which allows the analyst to go through malware dissection, thus it must be effective in doing so.
 
 Given the number of malware categories in the wild, flexible and transparent analysis systems are preferred because easily adaptable. The ability of security professionals in developing techniques to dissect and profile the malware behaviour, meets the cunning of malware writers who continually develop new anti-analysis hacks against malware dissection (see \autoref{subsec:evasivemalware}). Often before harming the victim, malicious samples seek the presence of any analysis system (e.g., virtual machines, debuggers) and, if so, they either act as benign or even try to bypass it. Supporting the analyst against evasive malware behaviour, providing at the same time fine-grained control during its dissection, would make the whole analysis process less time-consuming.
 
@@ -573,7 +578,7 @@ BluePill is designed on top of a DBI framework strengthening its robustness, ste
 \centering
 \includegraphics[scale=.6]{images/techn8}
 \caption{Bird's eye view of BluePill architecture.}
-\source{"On the Dissection of Evasive Malware."}
+\source{``On the Dissection of Evasive Malware.''}
 \end{figure}
 
 \subsubsection{Target Platform Simulation Layer}
@@ -587,7 +592,7 @@ Environmental artifacts altered by the system are:
 \item Instructions whose behaviour depend on whether they are virtualised or not (e.g., \texttt{sidt} on VMware). Even some data structures may have different content whether they are virtualised or in a native system;
 \item Hardware characteristics which make virtualised systems recognisable from native ones. This list includes CPU model, number of adapters, MAC address family, among others;
 \item Divergences in Windows images. Specifically, when a Windows image is installed into a VM or hypervisor, the latter includes distinctive artifacts like registry entries, files and processes;
-\item User fingerprint. By looking at artifacts like browser history and recently opened file, malware can estimate the "level of use" of an OS. Through this estimation, a sample may understand whether the underlying OS is installed in a virtualised environment or not;
+\item User fingerprint. By looking at artifacts like browser history and recently opened file, malware can estimate the ``level of use'' of an OS. Through this estimation, a sample may understand whether the underlying OS is installed in a virtualised environment or not;
 \item Presence of specific applications. The most common evasive behaviour adopted by a malware is checking whether in the target system, there are installed specific analysis tools (e.g., debuggers, anti-viruses).
 \end{itemize} 
 A different category of artifacts are those which should be altered only during the execution:
@@ -616,6 +621,7 @@ The introspection layer already prevents anti-tampering techniques but a malware
 The BluePill framework already comes with some support to dynamic taint analysis. Since BluePill is a Pintool, the best choice would be implementing the DFT system using APIs offered by Intel PIN.
 
 \section{libdft}
+\label{sec:libdft}
 Dynamic taint analysis refers to the technique that consists in tagging and tracking data of interest as they propagate during program execution. At this point, it is necessary to introduce a framework or library that implements the logic behind dynamic flow tracking.
 
 libdft~\cite{kemerlis2012libdft} is a dynamic data flow tracking library implemented on top of Pin DBI framework. The main characteristic that distinguishes this library from similar works in this field~\cite{bosman2011minemu}~\cite{qin2006lift}, is the high customization and ease with which it can be modified. Indeed, thanks to the large set of APIs exported by the library, it is possible to implement a DFT tool in a simple and effective manner.
@@ -653,7 +659,7 @@ When using tags of this size, the shadow memory needed by libdft has the same si
 \caption{Structure of libdft \texttt{STAB} data structure when employing byte-size tags.}
 \end{figure}
 
-Each \texttt{STAB} entry corresponds to a page-size area\footnote{The usual page size in $32$-bits Windows architecture is $4$KB.} and holds a $32$-bits offset used to access all memory addresses inside that page. The virtual address tag is retrieved into two steps (see listing \ref{lst:virttobyte}):
+Each \texttt{STAB} entry corresponds to a page-size area\footnote{The usual page size in $32$-bits Windows architecture is $4$KB.} and holds a $32$-bits offset used to access all memory addresses inside that page. The virtual address tag is retrieved into two steps (see \autoref{lst:virttobyte}):
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item the $20$ most significant bits of the virtual address serve as index into the mapping table to get the appropriate offset
 \item then, adding the virtual address to the offset, it is possible to get the related tag.
@@ -675,7 +681,7 @@ taddr = vaddr + offset;
 \caption{Structure of libdft \texttt{mem\_bitmap} when employing bit-size tags. Differently from the previous case, here each byte (box-surrounded regions) is either tagged (regions marked with \texttt{x}) or not.}
 \end{figure}
 
-When we want to know whether a byte is tainted or not, we need to access this bitmap given the virtual address of the target byte (see listing \ref{lst:virttobit}):. In particular, 
+When we want to know whether a byte is tainted or not, we need to access this bitmap given the virtual address of the target byte (see \autoref{lst:virttobit}). In particular, 
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item the $29$ most significant bits of the address are used to look for the byte containing tags associated to the virtual address
 \item then, the $3$ least significant bits act as offset within the byte retrieved previously.
@@ -861,7 +867,7 @@ aam    \$0x[1-9a-f][0-9a-f]*;adc    %ch,-0x[1-9a-f][0-9a-f]*(%eax)->0.
 Signature databases however suffer from several disadvantages:
 \begin{enumerate}
 \item At first, generated signatures are compiler-specific. Depending on the type of compiler (e.g., \texttt{clang}, \texttt{gcc}, \texttt{g++}), function prologues and epilogues vary and so does the signature;
-\item While a good level of accuracy can be reached when a binary is not optimized, things get harder when the binary is compiled with an high optimization level;
+\item While a good level of accuracy can be reached when a binary is not optimized, things get harder when the binary is compiled with a high optimization level;
 \item In the end, a signature database can be seen as a blacklist of functions. Hence, as any other blacklist, to be effective it must be continuously updated.
 \end{enumerate}
 In this context, Nucleus~\cite{andriesse2017compiler} is an open-source, compiler-agnostic, function detection tool. Being compiler-agnostic, the output of the analysis is not influenced by the compiler through which the binary is produced. In order to identify a function in a binary, the tool has to 
@@ -878,7 +884,7 @@ When the file is given in input to BluePill, {\sf DTA-Tracker} starts parsing it
 The process described above would be an optimal solution under different point of view:
 \begin{enumerate}
 \item The first one surely regards performances. Since the function boundaries identification is performed statically, it avoids the performance overhead which afflicts any other dynamic approach. Moreover, thanks to the choice of holding intervals into an interval tree data structure, allows to have good performances for both insertion and search operations;
-\item The second one is about accuracy. Indeed, thanks to the heuristics adopted by Nucleus it is possible, in principle, to reach an higher accuracy especially when having multi-entry point functions.
+\item The second one is about accuracy. Indeed, thanks to the heuristics adopted by Nucleus it is possible, in principle, to reach a higher accuracy especially when having multi-entry point functions.
 \end{enumerate}
 It must be pointed out, tough, that results were not as precise as the expectations. Indeed, several function boundaries identified by Nucleus in  malware samples were not just inaccurate, most of them were rather completely wrong.\\
 
@@ -914,7 +920,7 @@ typedef struct callStackThread_t {
 \end{lstlisting}
 
 \noindent
-As it is possible to see from the code snippet in Listing~\ref{lst:shadowstack}, each subroutine can be identified by a triple plus another value which we are going to discuss later in this section. Each time a new function or system call is invoked by the program under analysis, a \texttt{callStackFrameP} is created and pushed on top of \texttt{callStack}.
+As it is possible to see from the code snippet in \autoref{lst:shadowstack}, each subroutine can be identified by a triple plus another value which we are going to discuss later in this section. Each time a new function or system call is invoked by the program under analysis, a \texttt{callStackFrameP} is created and pushed on top of \texttt{callStack}.
 
 {\sf DTA-Tracker} understands that the application is invoking a function or system call, by using DBI to instrument each \texttt{call} instruction encountered during the program execution. Thanks to the unlimited features offered by Pin, an analysis function is injected right before the execution of the \texttt{call} instruction to push a new entry on the shadow call stack, storing the following information:
 \begin{itemize}
@@ -924,8 +930,8 @@ As it is possible to see from the code snippet in Listing~\ref{lst:shadowstack},
 \end{itemize} 
 Nonetheless, when inserting a new frame, the call stack could be in an inconsistent state due to possible optimizations and tricks adopted by the malware. For this reason, before actually pushing the frame, the callback performs some safety checks:
 \begin{enumerate}
-\item If the stack pointer value of the top call-stack frame and the new frame is the same and both return addresses match, then it is possible that the the malware performed a \textit{tail call}\footnote{When a binary is compiled using an high optimization level, it is possible that the compiler uses a \texttt{jmp} instructions to directly jump to the next routine avoiding the "overhead" introduced by another sequence of \texttt{call}-\texttt{ret} instructions.}. In such case, no frame should be pushed. This technique is so much adopted by malicious code that it is worthwhile to check for this situation;
-\item If we are not in the case described by the previous point, what should be checked before pushing the new frame, is the presence of stale frames in the stack (i.e., frames for which the respective subroutines have already returned). For a frame to be stale, it must have an higher stack pointer value with respect to the one of the new frame\footnote{In all OS the stack grows from higher address to smaller ones thus, when a function returns, the stack pointer is increased.}. Therefore, the whole call stack is inspected to pop every stale frame and, in the end, the new one can be pushed.  
+\item If the stack pointer value of the top call-stack frame and the new frame is the same and both return addresses match, then it is possible that the the malware performed a \textit{tail call}\footnote{When a binary is compiled using a high optimization level, it is possible that the compiler uses a \texttt{jmp} instructions to directly jump to the next routine avoiding the ``overhead'' introduced by another sequence of \texttt{call}-\texttt{ret} instructions.}. In such case, no frame should be pushed. This technique is so much adopted by malicious code that it is worthwhile to check for this situation;
+\item If we are not in the case described by the previous point, what should be checked before pushing the new frame, is the presence of stale frames in the stack (i.e., frames for which the respective subroutines have already returned). For a frame to be stale, it must have a higher stack pointer value with respect to the one of the new frame\footnote{In all OS the stack grows from higher address to smaller ones thus, when a function returns, the stack pointer is increased.}. Therefore, the whole call stack is inspected to pop every stale frame and, in the end, the new one can be pushed.  
 \end{enumerate}
 Furthermore, {\sf DTA-Tracker} instruments every \texttt{ret} instruction with a callback that properly updates the shadow call stack when a routine terminates. Given the target address (i.e., where the \texttt{ret} is going to fall back) and the stack pointer value at that moment, the analysis routine works on two steps:
 \begin{enumerate}
@@ -934,7 +940,7 @@ Furthermore, {\sf DTA-Tracker} instruments every \texttt{ret} instruction with a
 \end{enumerate}
 Even though handling corner cases described above can result in a slight overhead, not managing them at all may lead to additive inaccuracies which, at the end of the analysis, produce erroneous results.\\
 
-Leveraging the shadow call stack, {\sf DTA-Tracker} defines a \textit{context} as the set of frames contained in the call stack at a specific time~\cite{hcct}. When a new frame is about to be pushed, the correspondent context is computed by xor-ing its return address with the top frame context. The \texttt{context} variable in listing \ref{lst:shadowstack}, is used to assign a unique identifier to each context in order to understand when during the execution, tainted data is introduced (\autoref{subsec:produceridentification}).
+Leveraging the shadow call stack, {\sf DTA-Tracker} defines a \textit{context} as the set of frames contained in the call stack at a specific time~\cite{hcct}. When a new frame is about to be pushed, the correspondent context is computed by xor-ing its return address with the top frame context. The \texttt{context} variable in \autoref{lst:shadowstack}, is used to assign a unique identifier to each context in order to understand when during the execution, tainted data is introduced (\autoref{subsec:produceridentification}).
 
 \begin{figure}[h!]
 \centering
@@ -946,7 +952,7 @@ Leveraging the shadow call stack, {\sf DTA-Tracker} defines a \textit{context} a
 \label{subsec:taintsinks}
 In the introduction of \autoref{ch:dta-tracker} we already explained that the burden of managing the whole taint propagation logic was left to the libdft library. Thus, having reached this point, what it is missing is the {\sf DTA-Tracker}, is the definition of a taint sink.\\
 
-The information contained inside the shadow call stack is necessary to distinguish all the different routines invoked by the malware during its entire execution. As any other computer program, to purse its goal the malware will surely make use of APIs and system calls exported by Windows DLLs, which are consequently tracked and pushed into the shadow call stack. While the knowledge of APIs and system calls name would be informative, most of the time it is only important know that they "do something" with tainted data.
+The information contained inside the shadow call stack is necessary to distinguish all the different routines invoked by the malware during its entire execution. As any other computer program, to purse its goal the malware will surely make use of APIs and system calls exported by Windows DLLs, which are consequently tracked and pushed into the shadow call stack. While the knowledge of APIs and system calls name would be informative, most of the time it is only important know that they ``do something'' with tainted data.
 
 As already mentioned in the discussion above, the ultimate purpose of the {\sf DTA-Tracker} is to give to the analyst an overview about which malware instructions involve tainted data in their computations. This choice was done for mainly two reasons:
 \begin{enumerate}
@@ -1032,7 +1038,7 @@ In the first macro-phase {\sf DTA-Tracker} records in the memory accesses file, 
 Therefore, {\sf DTA-Tracker} defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to BluePill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint its output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.
 While these addresses above are full-fledged chunks, it is also true that they are not the only ones identifiable during the whole program execution. The reason why they are not the only possible chunks, is due to data movement operations. One can think, for example, to a malware routine that just retrieves the data of interest and transfers them to another function which then completes the job. This scenario can, of course, be modeled differently depending both on the compiler and on the optimization level but, in most cases, it will involve more than one chunk.
 
-Hence, one of the tasks of this phase, is to identify chunks\footnote{Chunks constructed in this way are referred to as \textit{type\_2 chunks}.} (e.g, \texttt{ImageBaseArray[]}) resulting from situations like the one in listing \ref{lst:type2chunks}.
+Hence, one of the tasks of this phase, is to identify chunks\footnote{Chunks constructed in this way are referred to as \textit{type\_2 chunks}.} (e.g, \texttt{ImageBaseArray[]}) resulting from situations like the one in \autoref{lst:type2chunks}.
 
 %\newpage
 \begin{lstlisting} [language={C++}, label={lst:type2chunks}, caption={Simple example showing how it is possible to cause other memory regions to become tainted, assuming \texttt{ModuleInfo} to be tainted.}]
@@ -1118,9 +1124,9 @@ NTSYSAPI PVOID RtlCreateHeap(
 \noindent
 In the end, taking into consideration both the aforementioned reasons, we moved our attention to a different set of lower-level calls: \texttt{RtlAllocateHeap()}, \texttt{RtleFreeHeap()} and \texttt{RtlReAllocateHeap()}. The first two functions are declared in the \texttt{Ntifs.h} header~\cite{Ntifshhe84:online} file while the last one is undocumented. Deciding to analyse these functions rather than the ones presented above, makes possible to get more precise information about each single heap chunk.
 
-Nonetheless, being low-level functions, they are widely used by the OS to allocate and de-allocate heap memory, introducing serious performance overhead. Moreover, and most importantly, a malware can employ a specific routine to allocate heap memory which is later tainted in a different function: in this situation the "allocator" is different from the real producer.
+Nonetheless, being low-level functions, they are widely used by the OS to allocate and de-allocate heap memory, introducing serious performance overhead. Moreover, and most importantly, a malware can employ a specific routine to allocate heap memory which is later tainted in a different function: in this situation the ``allocator'' is different from the real producer.
 
-\begin{lstlisting} [language={C++}, caption={Code snippet showing the difference between the "allocator" function and the one that actually causes data to become tainted.}]
+\begin{lstlisting} [language={C++}, caption={Code snippet showing the difference between the ``allocator'' function and the one that actually causes data to become tainted.}]
 PVOID allocator_function(SIZE_T size) {
 	PVOID ModuleInfo = RtlAllocateHeap(GetProcessHeap(), 0, size);
 	return ModuleInfo;
@@ -1208,19 +1214,20 @@ The countermeasure present in \texttt{NtQuerySystemInformation} with input flag 
 \end{figure}
 
 \noindent
-When a producer creates a number of tainted chunks exceeding a threshold (i.e., 10), {\sf DTA-Tracker} groups them into a single larger chunk. Although most of the graph is exactly the same as the one in Figure \autoref{fig:eval1}, there is divergence caused by the lack of a countermeasure in the \texttt{NtQuerySystemInformation} hook. Indeed, while in Figure \autoref{fig:eval1} chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7} were grouped into a bigger range because exceeding the threshold, in this case they give precious information for a future dissection. In fact, the graph describes the exact point in the aforementioned array, where the evasion took place.
+When a producer creates a number of tainted chunks exceeding a threshold (i.e., 10), {\sf DTA-Tracker} groups them into a single larger chunk. Although most of the graph is exactly the same as the one in \autoref{fig:eval1}, there is divergence caused by the lack of a countermeasure in the \texttt{NtQuerySystemInformation} hook. Indeed, while in \autoref{fig:eval1} chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7} were grouped into a bigger range because exceeding the threshold, in this case they give precious information for a future dissection. In fact, the graph describes the exact point in the aforementioned array, where the evasion took place.
  
 Knowing that, the analyst can for example, place a breakpoint close to the instruction identified by the consumer (looking for a possible loop pattern) and step-over as many times as the number of chunks produced by \texttt{NtQSI-SystemProcessInformation 538be7}.\\
 
 Lastly we re-enabled the countermeasure of \texttt{NtQuerySystemInformation} while disabling the one for \texttt{GetAdaptersInfo}. This latter function retrieves information on computer adapters which are often used by malware authors to detect hypervisors and virtual machines. The result produced by {\sf DTA-Tracker} under these settings, is the following producer-consumer graph:
 
-Let us focus on the divergence caused by switching-off the countermeasure in \texttt{GetAdaptersInfo} hook. In particular, it is possible to notice two differences: there are fewer consumers and some of them were not present in the first run. In this case, the analyst can focus on the instruction sequence that lead to the execution of these latter consumers Figure~\ref{fig:eval1} and which is probably the responsible of the premature termination.
+Let us focus on the divergence caused by switching-off the countermeasure in \texttt{GetAdaptersInfo} hook. In particular, it is possible to notice two differences: there are fewer consumers and some of them were not present in the first run. In this case, the analyst can focus on the instruction sequence that lead to the execution of these latter consumers \autoref{fig:eval1} and which is probably the responsible of the premature termination.
 
 \clearpage
 \begin{figure}[h!]
 \centering%scale=.5
 \includegraphics[width=\textwidth]{images/eval3_def}
 \caption{Producer-consumer graph when Furtim evades due to the lack of \texttt{GetAdaptersInfo} hook.}
+\label{fig:eval3}
 \end{figure}
 
 \noindent
@@ -1240,9 +1247,9 @@ As explained in detail throughout the thesis, our tool consists of two component
 \end{enumerate}
 Given this design, {\sf DTA-Tracker} is implemented by two different programs, each one responsible for one of the two phases.\\
 
-In order to help the user to understand how to fully exploit the features of the tool, this appendix provides a step-by-step description on how to build the producer-consumer graphs presented in Section~\ref{sec:evaluations}.\\
+In order to help the user to understand how to fully exploit the features of the tool, this appendix provides a step-by-step description on how to build the producer-consumer graphs presented in \autoref{sec:evaluations}.\\
 
-The first step consists in choosing the taint sources where to place taint seeds. To produce the graphs of Section~\ref{sec:evaluations} we first ran the malware under BluePill to have the set of (evasive) calls invoked by the program. The version of BluePill currently used by {\sf DTA-Tracker} produces a set of \texttt{.txt} files that log function and system calls (as well as low-level sequences like {\tt cpuid}) that are likely involved in evasive actions from any thread used by the analysed malware sample. To produce the aforementioned files, we ran BluePill with the following command line sequence:
+The first step consists in choosing the taint sources where to place taint seeds. To produce the graphs of \autoref{sec:evaluations} we first ran the malware under BluePill to have the set of (evasive) calls invoked by the program. The version of BluePill currently used by {\sf DTA-Tracker} produces a set of \texttt{.txt} files that log function and system calls (as well as low-level sequences like {\tt cpuid}) that are likely involved in evasive actions from any thread used by the analysed malware sample. To produce the aforementioned files, we ran BluePill with the following command line sequence:
 \begin{lstlisting} [language={bash}, caption={Command line script to run the binary sample named \texttt{furtim\_sample.exe} under BluePill.}]
 C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread 
 				   -antiev-swrite -antiev-ins -- 
@@ -1250,7 +1257,7 @@ C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread
 \end{lstlisting}
 
 \noindent
-From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of {\sf DTA-Tracker}. For the evaluations provided in Section~\ref{sec:evaluations}, we ran BluePill on Furtim malware and we chose the following set of tainted sources:
+From that set, it is possible to select those that will be the taint sources in later executions of {\sf DTA-Tracker}. For the evaluations provided in \autoref{sec:evaluations}, we ran BluePill on Furtim malware and we chose the following set of tainted sources:
 \begin{itemize}
 \item \texttt{NtQueryAttributesFile}
 \item \texttt{cpuid}
@@ -1281,7 +1288,7 @@ After having accurately chosen the set of calls whose output should be tainted, 
 %\end{figure}
 
 \noindent
-Before actually starting the analysis, we can still take advantage of the features offered by BluePill to operate on the malware execution. As already explained in \iffalse section BluePill\fi , to neutralise malware evasion techniques, BluePill provides several hooks to functions, system calls, and even x$86$ instructions for observing the behaviour of the malicious binary. Each countermeasure can be easily turned on and off based on what malware behaviour is being emphasised. The basic idea remains to study the interaction between the sample and tainted data to characterize the behaviour of the malware both in case of evasions and not. In order for {\sf DTA-Tracker} to produce the first graph shown in the evaluation, all the countermeasures related to the aforementioned taint sources should be active.
+Before actually starting the analysis, we can still take advantage of the features offered by BluePill to operate on the malware execution. As already explained in \autoref{sec:bluepill}, to neutralise malware evasion techniques, BluePill provides several hooks to functions, system calls, and even x$86$ instructions for observing the behaviour of the malicious binary. Each countermeasure can be easily turned on and off based on what malware behaviour is being emphasised. The basic idea remains to study the interaction between the sample and tainted data to characterize the behaviour of the malware both in case of evasions and not. In order for {\sf DTA-Tracker} to produce the first graph shown in the evaluation, all the countermeasures related to the aforementioned taint sources should be active.
 \begin{lstlisting} [language={C++}, label={lst:hooks}, caption={List of taint sources.}]
 /*cpuid instruction as taint source*/
 VOID AssemblyHandler::patchCpuidExit(ADDRINT ip, CONTEXT *ctxt, ADDRINT cur_eip) {
@@ -1498,9 +1505,9 @@ VOID LoadLibraryWHook_exit(CONTEXT *ctx) {
 	}
 }
 \end{lstlisting}
-As it is possible to see from Listing \ref{lst:hooks} there are common traits between the various hooks, starting from the presence of an \texttt{if} statement involving an hashmap called \texttt{colours\_map}. This latter is exactly the data structure containing the mapping between hook ids and colours. Each time one of the hooks is triggered, the tool checks whether the respective id is contained within this map and, if it happens, the corresponding color (the \texttt{tag\_t col} variable) is employed as taint seed. The search operation is carried out by the line \texttt{(f = colours\_map.find(/*hook\_id*/)) != colours\_map.end()} where \texttt{hook\_id} should be substituted with the id corresponding to that hook. Moreover, performances offered by the \texttt{.find()} function on the hashmap, allow to search elements with $O(\log n)$ time complexity.
+As it is possible to see from \autoref{lst:hooks} there are common traits between the various hooks, starting from the presence of an \texttt{if} statement involving an hashmap called \texttt{colours\_map}. This latter is exactly the data structure containing the mapping between hook ids and colours. Each time one of the hooks is triggered, the tool checks whether the respective id is contained within this map and, if it happens, the corresponding color (the \texttt{tag\_t col} variable) is employed as taint seed. The search operation is carried out by the line \texttt{(f = colours\_map.find(/*hook\_id*/)) != colours\_map.end()} where \texttt{hook\_id} should be substituted with the id corresponding to that hook. Moreover, performances offered by the \texttt{.find()} function on the hashmap, allow to search elements with $O(\log n)$ time complexity.
 
-Within the aforementioned \texttt{if} statement, some hooks have a call to the \texttt{log\_hoo\-k\_id(string, thread\_ctx\_t*, ADDRINT, size\_t)} function. Specifically, only taint sources that write data in memory are equipped with this call. Indeed, its purpose is to populate the \texttt{taintedregions.txt} file with information about first type producers (\iffalse aggiungere reference chapter producers\fi), namely:
+Within the aforementioned \texttt{if} statement, some hooks have a call to the \texttt{log\_hoo\-k\_id(string, thread\_ctx\_t*, ADDRINT, size\_t)} function. Specifically, only taint sources that write data in memory are equipped with this call. Indeed, its purpose is to populate the \texttt{taintedregions.txt} file with information about first type producers (see \autoref{subsec:produceridentification}), namely:
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item the name of the function, system call or instruction whose hook is triggered
 \item the context in which the call was made
@@ -1516,7 +1523,7 @@ Lastly, there are two other function calls in common to all the hooks, namely, \
 \item the colour
 \item and a boolean variable telling whether the tag of the target bytes should be overwritten or combined with the one already owned by that byte, if any.
 \end{enumerate*}
-Specifically, it is a wrapper function which in the end, colours the byte of libdft tagmap (\iffalse aggiungere reference chapter libdft\fi) through a call to \texttt{tagmap\_setb\_with\_tag(ADDRINT, tag\_t)}. In case the boolean variable is set to \texttt{false}, a call to the the function \texttt{tagmap\_getb(ADDRINT)} is used to retrieve the tag corresponding to the target address;
+Specifically, it is a wrapper function which in the end, colours the byte of libdft tagmap (see \autoref{sec:libdft}) through a call to \texttt{tagmap\_setb\_with\_tag(ADDRINT, tag\_t)}. In case the boolean variable is set to \texttt{false}, a call to the the function \texttt{tagmap\_getb(ADDRINT)} is used to retrieve the tag corresponding to the target address;
 \item The counterpart of \texttt{addTaintMemory} which deals with colouring the register bytes is \texttt{addTaintRegister}. The input arguments are respectively:
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item a per-thread data structure managed by BluePill
@@ -1538,13 +1545,13 @@ C:\Users\Riccardo\Documents\ProducerConsumer > ProducerConsumer.exe furtim_sampl
 		 furtim_sample_taintedregions.txt 
 		 furtim_sample_taintedtrace.txt
 \end{lstlisting}
-Various programs like \textit{Graphviz}\footnote{\url{https://www.graphviz.org/}.} can process DOT files to render them in a graphical form. From the working directory of Graphviz executable and running the command below, we can get the graphical representation of the producer-consumer graph relative to the file \texttt{furtim\_sample\_prodcons.gv} (the first picture shown in chapter \iffalse insert eval chapter here\fi ).
+Various programs like \textit{Graphviz}\footnote{\url{https://www.graphviz.org/}.} can process DOT files to render them in a graphical form. From the working directory of Graphviz executable and running the command below, we can get the graphical representation of the producer-consumer graph relative to the file \texttt{furtim\_sample\_prodcons.gv} (the first picture shown in \autoref{ch:futureworks}).
 \begin{lstlisting} [language={bash}, caption={Command line script to generate the graphical representation of the producer-consumer graph relative to the previous analysis on Furtim.}]
 C:\Users\Riccardo\Documents\graphviz > dot.exe -Tpng -O furtim_sample_prodcons.gv
 \end{lstlisting}
-This is exactly the series of steps to follow in order to generate the graph in the figure \iffalse inserire autoref al primo grafo di evaluations\fi .\\ 
+This is exactly the series of steps to follow in order to generate the graph shown in \autoref{fig:eval1}.\\ 
 
-Nonetheless, to build the other two graphs, we need to make changes to some of the hooks listed in \ref{lst:hooks}. Specifically, for the run where Furtim evades after inspecting the running processes in the machine, only the \texttt{NtQuerySystemInformati\-on(SystemProcessInformation)} hook should be changed like in the following:
+Nonetheless, to build the other two graphs, we need to make changes to some of the hooks in \autoref{lst:hooks}. Specifically, for the run where Furtim evades after inspecting the running processes in the machine, only the \texttt{NtQuerySystemInformati\-on(SystemProcessInformation)} hook should be changed like in the following:
 \begin{lstlisting} [language={C++}, caption={NtQuerySystemInformation hook with SystemProcessInformation as second parameter, that leads to the first evasion of Furtim malware.}]
 ...
 if (sc->arg0 == SystemProcessInformation) {
@@ -1580,7 +1587,7 @@ if (sc->arg0 == SystemProcessInformation) {
 }
 ...
 \end{lstlisting}
-On the other hand, to replicate the last graph (\iffalse inserire autoref all'ultima figura\fi ) shown in \iffalse inserire autoref al chapter evaluations\fi , the previous hook should return to be as in \ref{lst:hooks} while the one related to \texttt{GetAdaptersInfo()} needs to be changed as follows:
+On the other hand, to replicate the last graph shown in \autoref{fig:eval3}, the previous hook should return to be as in \autoref{lst:hooks} while the one related to \texttt{GetAdaptersInfo()} needs to be changed as follows:
 \begin{lstlisting} [language={C++}, caption={GetAdaptersInfo hook which leads to the evasion of Furtim malware.}]
 /*GetAdaptersInfo taint source*/
 VOID GetAdaptersInfoHookExit(ADDRINT ret, CONTEXT *ctx) {
