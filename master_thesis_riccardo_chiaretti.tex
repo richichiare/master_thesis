@@ -107,10 +107,12 @@ Riccardo Chiaretti
 \mainmatter
 
 \chapter{Introduction}
-Over the years, there have been great strides in the world of technology. Amazing devices like smartphones, tablets and computers allow us to have information within easy reach. In a very short period of time, these devices have become so much part of our lives that we now find it impossible to live without. The Internet has established itself as a global medium for the interconnection of people, companies and even appliances with the evolution of Internet-of-Things. At the beginning of $2019$ there were $5.114$ billion unique mobile users and $4.39$ billion internet users in the world\footnote{https://datareportal.com/reports/digital-2019-global-digital-overview.}.\\
-Although these new technologies made our life much easier, there exist people who take advantage of them in ways that are not appropriate. The issue becomes increasingly difficult to solve due to the growing number of devices connected to the Internet. \textit{Cybercrime} can be defined as the illegal action where an information system (e.g., mobile device, computer) is a target or a tool\cite{dashora2011cyber}. Information systems are targets of cybercrime in cases of unauthorized accesses, physical damage to systems or also theft of sensitive data. Conversely, information systems serve as tools in activities like email spoofing and financial crimes. The reason behind these attacks is money: in $2018$ the average cost of a data-breach for a U.S. company was $\$7.91$ billions\footnote{https://www.symantec.com/definitions/why-is-cyber-security-important.}. Furthermore, cybercrime costs will exceed $\$2$ trillion by the end of $2019$ and is expected to more than double in $2020$.\\
+Over the years there have been great strides in the world of technology. Amazing devices like smartphones, tablets and computers allow us to have information within easy reach. In a very short period of time, these devices have become so much part of our lives that we now find it impossible to live without. The Internet has established itself as a global medium for the interconnection of people, companies and even appliances with the evolution of Internet-of-Things. At the beginning of $2019$ there were $5.114$ billion unique mobile users and $4.39$ billion internet users in the world\footnote{https://datareportal.com/reports/digital-2019-global-digital-overview.}.
 
-There are several types of malicious software through which an attacker can achieve his purpose including worms, trojan viruses and spyware. The concept of malicious software actually, is not something new\cite{Historyo87:online}. Even though the first information systems were not targeted by malicious programs, it does not mean at all that they were invulnerable rather, people were just not aware of the possibility to exploit computer systems. Indeed, according to \cite{Whendidt95:online}, the first malicious threat\footnote{In the field of computer security, a threat refers to any entity which has the potential to harm computers, computer systems, network infrastructures and many other systems. What is defined to be a threat strictly depends on the target information system but, often categorized as threats are: vulnerabilities, people who can infiltrate a system and malicious software.} goes back to $1949$. In particular, the first mathematical definition of a computer virus, was introduced in $1986$ by the computer scientist Fred Choen\cite{cohen1987computer}.\\
+Although these new technologies made our life much easier, there exist people who take advantage of them in ways that are not appropriate. The issue becomes increasingly difficult to solve due to the growing number of devices connected to the Internet. \textit{Cybercrime} can be defined as the illegal action where an information system (e.g., mobile device, computer) is a target or a tool\cite{dashora2011cyber}. Information systems are targets of cybercrime in cases of unauthorized accesses, physical damage to systems or also theft of sensitive data. Conversely, information systems serve as tools in activities like email spoofing and financial crimes. The reason behind these attacks is money: in $2018$ the average cost of a data-breach for a U.S. company was $\$7.91$ billions\footnote{\url{https://www.symantec.com/definitions/why-is-cyber-security-important}.}. Furthermore, cybercrime costs will exceed $\$2$ trillion by the end of $2019$ and is expected to more than double in $2020$.\\
+
+There are several types of malicious software through which an attacker can achieve his purpose including worms, trojan viruses and spyware. The concept of malicious software actually, is not something new\cite{Historyo87:online}. Even though the first information systems were not targeted by malicious programs, it does not mean at all that they were invulnerable rather, people were just not aware of the possibility to exploit computer systems. Indeed, according to \cite{Whendidt95:online}, the first malicious threat\footnote{In the field of computer security, a threat refers to any entity which has the potential to harm computers, computer systems, network infrastructures and many other systems. What is defined to be a threat strictly depends on the target information system but, often categorized as threats are: vulnerabilities, people who can infiltrate a system and malicious software.} goes back to $1949$. In particular, the first mathematical definition of a computer virus, was introduced in $1986$ by the computer scientist Fred Choen\cite{cohen1987computer}.
+
 However, as technology evolved, malware authors were also able to improve their software: from simple and harmless programs that were able to move across networks\footnote{https://corewar.co.uk/creeper.htm.} or replicate themselves\footnote{https://pandorafms.com/blog/creeper-and-reaper/.} we are now in the era of ransomware, fileless malware\cite{alzurigrowth} 
 and advanced persistent threats\cite{virvilis2013big}.\\
 
@@ -120,7 +122,7 @@ Security professionals employ great efforts in designing systems that can disarm
 %The majority of information flow tracking tools are used to enforce integrity and confidentiality polices on sensitive data. Thus,  without providing fine-grained information
 
 \section{Contributions}
-In order to lighten the job of a malware analyst, helping him in the task of binary dissection for understanding its behaviour, this thesis proposes a completely new approach for modelling the interaction between the executable and the data it manipulates. Leveraging the taint analysis technique and Pin DBI framework, we propose DTA-Tracker, a program analysis tool designed on top of BluePill and able to:
+In order to lighten the job of a malware analyst, helping him in the task of binary dissection for understanding its behaviour, this thesis proposes a novel approach for modelling the interaction between the executable and the data it manipulates. Building on taint analysis techniques and dynamic binary instrumentation, we propose {\sf DTA-Tracker}, a program analysis tool designed to:
 \begin{itemize}
 \item Taint the output data of several APIs and system calls providing calling context information to help understanding where, in the executable, tainted data is introduced;
 \item Accurately identify all memory chunks coloured as a result of data movement operations;
@@ -219,7 +221,7 @@ Choosing the right environment is not an easy task and depends also on the malwa
 \caption{Possible virtualisation categories. The VirtualBox VM can provide software assisted virtualisation, when the underlying host does not enable hardware-assisted virtualisation but it can also act as hosted hypervisor.}
 \end{figure}
 \newpage
-\subsection{Evasive Malware Challenges}
+\subsection{Challenges from Evasive Malware}
 \label{subsec:evasivemalware}
 In order to make analysis environments safe, analysts use tool and techniques which isolate the malware as much as possible thus, reducing the harm caused to the system. Virtualised environments are, in this context, the best choice because they avoid that changes on the guest OS can fall back to the host OS. On the other hand, there is not much to do for bare-metal systems where the malware can directly infect the host operating system. Although it may seem that these latter systems are more disadvantageous than virtualised ones, they are the most transparent.\\
 The property of an analysis system to be indistinguishable from any non-analysis system, is referred to as \textit{transparency}\cite{bulazel2017survey}. While bare-metal analysis systems can reach a very high transparency level, it would be infeasible due to performance and design reasons, to build a transparent virtual machine\cite{garfinkel2007compatibility}.\\
@@ -393,6 +395,7 @@ int example_1(int seed) {
 	return res;
 }
 \end{lstlisting}
+\clearpage
 \begin{lstlisting} [language={C++}, label={lst:implictflow2}, caption={Function where tainted data can cause implicit flow. However, compared to the first example, here the complexity level is higher.}]
 /*
 * Example 2: more complex case of implicit flow where the the tainted
@@ -427,7 +430,7 @@ Conversely, a DTA system which does not taint a value when, in practice it shoul
 \item While control flow tracking is known to cause overtainting, at the same time only performing data flow tracking entails to undertainting issues.
 \end{itemize}
 Virtually any system, each one with a different degree, suffers from both undertainting and overtainting. In fact, avoiding these problems while maintaining good performance is practically impossible.
-\newpage
+%\newpage
 \section{Code Instrumentation}
 In software engineering, the most adopted technique for analysing software is through debugging. This is usually done by a software engineer during the development to identify where the program fails in order to fix that failure. In a situation like that, the debugging session can be enhanced by the availability of source code which is by no means obvious.\\
 In this context, the task of a malware analyst is similar to the one of a software engineer even though it is more tedious. Indeed, it is already difficult to recover the binary related to a malware, let alone the source code. Besides, a malware analyst has to deal with software which is often able to detect when it is being analysed (e.g., evasive malware in \autoref{subsec:evasivemalware}), hindering his job. Therefore, it is of primary importance for the analyst to have adequate tools through which monitoring the malware behaviour as well as extracting useful information.\\ 
@@ -439,13 +442,13 @@ In source code, the instrumentatio fragment is injected right before the program
 \item \textit{Dynamic binary instrumentation (DBI)} allows to instrument the program while it executes, modifying the binary on the fly. While in the static instrumentation it is possible to rewrite the file only once and run it multiple times, the dynamic approach needs to parse and modify the program at each execution, leading to an higher overhead.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[t]
 \centering
 \includegraphics[scale=.5]{images/techn6}
 \caption{Table showing advantages (+) and disadvantages (-) of Static and Dynamic Binary Instrumentation techniques.}
 \end{figure}
-\newpage
-\subsection{Dynamic Binary Instrumentation (DBI)}
+%\newpage
+\subsection{Dynamic Binary Instrumentation}
 \label{subsec:dbi}
 Rather than static binary instrumentation which requires to disassemble and rewrite the binary, DBI frameworks parse the instruction stream as the binary executes. This is a convenient feature for users who do need to recompile the program for each different execution\cite{nethercote2007valgrind}. DBI techniques allow to monitor or even alter the execution of software through the insertion of probes or user-defined routines, directly into the running executable\cite{d2019sok}. Moreover, the whole procedure does not require either accessing the source code or changing the binary executable at runtime.\\
 A DBI framework is the application executing binary programs under virtualised environment giving, at the same time, introspection capabilities in a programmatic manner. The DBI system offers a set of APIs through which it is possible to develop DBI tools that is, user-defined programs specifying:
@@ -503,7 +506,7 @@ Adopting probe-based dynamic instrumentation would go against Pin design choices
 \end{itemize}
 Although dynamic binary instrumentation is used in several software engineering domains including binary optimisation and program analysis, it is also employed in wide range of security fields. Specifically, some of the most relevant domains include reverse engineering (e.g., code de-obfuscation), vulnerability discovery (e.g., memory overflow), malware analysis (e.g., malware detection) or also information flow security (e.g., symbolic execution and taint analysis frameworks).
 
-\section{Blue Pill}
+\section{BluePill}
 \label{sec:bluepill}
 In \autoref{subsec:analysisenvironment} we already presented the necessity for a safe environment where analysing malicious software. The ability to isolate malicious actions is of course, a crucial feature which should characterise any analysis environment even though, it is not enough. Along with several other programs, the analysis system represents the tool which allows the analyst to go through malware dissection thus, it must be effective in doing so.\\
 Given the number of malware categories in the wild, flexible and transparent analysis systems are preferred because easily adaptable. The ability of security professionals in developing techniques to dissect and profile the malware behaviour, meets the cunning of malware writers who continually develop new anti-analysis hacks against malware dissection (see \autoref{subsec:evasivemalware}). Often before harming the victim, malicious samples seek the presence of any analysis system (e.g., virtual machines, debuggers) and, if so, they either act as benign or even try to bypass it. Supporting the analyst against evasive malware behaviour, providing at the same time fine-grained control during its dissection, would make the whole analysis process less time-consuming.
@@ -930,30 +933,40 @@ If consumers, producers and chunks define nodes of the graph, the relationships 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.45]{images/dtatracker3}
+\vspace{-5mm}
+\includegraphics[scale=.43]{images/dtatracker3}
+\vspace{-2mm}
 \caption{High level view of the offline component workflow.}
+\vspace{-4mm}
 \end{figure}
 
 \subsection{Consumer Driven Approach}
 The purpose of DTA-Tracker is to provide an effective and reliable tool which allows the analyst to focus attention on specific portions of the malicious software. According to the original design, the main actors are always malware instructions which manipulate data, that is, the consumers. Hence, for this last reason, the process of building the producer-consumer graph is said to be \textit{consumer-driven}.\\
 
-The first step involves loading the set of consumers identified by the dynamic analysis component of DTA-Tracker during the first macro-phase. Thus, the file \texttt{<exe-name>\_memoryaccesses.txt} is parsed line-by-line to create the list of all consumers as well as the set of all memory addresses accessed (e.g, read, written) by each of them.\\
+The first step involves loading the set of consumers identified by the dynamic analysis component of DTA-Tracker during the first macro-phase. Thus, the file \texttt{<exe-name>\_memoryaccesses.txt} is parsed line-by-line to create the list of all consumers as well as the set of all memory addresses accessed (e.g, read, written) by each of them.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.5]{images/dtatracker4}
+\vspace{-1mm}
+\includegraphics[scale=.48]{images/dtatracker4}
+\vspace{-3mm}
 \caption{Consumer identification step where the offline components loads the \texttt{memoryaccesses.txt} file to produce a mapping between consumers and the correspondent list of memory addresses.}
+\vspace{-1mm}
 \end{figure}
 
 The consumer node consists in the instruction address which manipulated a chunk of tainted data. However, at this moment, there is no clear idea about the membership chunk of each memory address and in order to define and identify all of them, an additional step is required.
-\newpage
+%\newpage
 \subsection{Chunk Identification}
 \label{subsec:chunkidentification}
-In the first macro-phase DTA-Tracker records in the memory accesses file, information about instructions which accessed tainted memory addresses. This implies that the dynamic component is aware only of single addresses accessed by the malware. Indeed, at the time when a function accesses a memory location, there is no easy way to understand the memory buffer to which that address belongs to.\\
+In the first macro-phase DTA-Tracker records in the memory accesses file, information about instructions which accessed tainted memory addresses. This implies that the dynamic component is aware only of single addresses accessed by the malware. Indeed, at the time when a function accesses a memory location, there is no easy way to understand the memory buffer to which that address belongs to.
 
-Therefore, DTA-Tracker defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to Blue Pill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint its output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.\\
+\smallskip
+Therefore, DTA-Tracker defines a \textit{chunk} as a set of adjacent memory addresses which have been used, at least once during the entire program execution, to store tainted data. It is important to notice that during the dynamic analysis of the program, there exist some memory addresses which can be already grouped into chunks. In fact, at the beginning of the analysis, right before the executable is given in input to Blue Pill, it is possible to choose the tainted sources (\autoref{subsec:taintingstep}): whenever the tool faces one of these sources (i.e., function or system call), it will properly taint its output bytes. In the end, these bytes are nothing less than a set of adjacent address that according to the aforementioned definition, correspond to a chunk\footnote{From now on, we are going to refer to these kind of chunks as \textit{type\_1 chunks}.}.
 While these addresses above are full-fledged chunks, it is also true that they are not the only ones identifiable during the whole program execution. The reason why they are not the only possible chunks, is due to data movement operations. One can think, for example, to a malware routine that just retrieves the data of interest and transfers them to another function which then completes the job. This scenario can, of course, be modeled differently depending both on the compiler and on the optimization level but, in most cases, it will involve more than one chunk.
-\newpage
+
+Hence, one of the tasks of this phase, is to identify chunks\footnote{Chunks constructed in this way are referred to as \textit{type\_2 chunks}.} (e.g, \texttt{ImageBaseArray[]}) resulting from situations like the one in listing \ref{lst:type2chunks}.
+
+%\newpage
 \begin{lstlisting} [language={C++}, label={lst:type2chunks}, caption={Simple example showing how it is possible to cause other memory regions to become tainted, assuming \texttt{ModuleInfo} to be tainted.}]
 int aux_func(PRTL_PROCESS_MODULES &ModuleInfo) {
 	PVOID ImageBaseArray[1024];
@@ -976,7 +989,6 @@ int main(int argc, char **argv) {
 
 \end{lstlisting}
 
-Hence, one of the tasks of this phase, is to identify chunks\footnote{Chunks constructed in this way are referred to as \textit{type\_2 chunks}.} (e.g, \texttt{ImageBaseArray[]}) resulting from situations like the one in listing \ref{lst:type2chunks}.\\
 The technique through which this is possible, requires the data stored into the tainted trace file. Each time that DTA-Tracker finds a tainted instruction, apart from logging information like the instruction type and address, it records:
 \begin{enumerate}
 \item The memory location accessed by the instruction;
@@ -998,7 +1010,8 @@ When all the chunks are identified, they can be associated to consumers: from th
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.5]{images/dtatracker5}
+\includegraphics[scale=.45]{images/dtatracker5}
+\vspace{-2mm}
 \caption{The offline component loads the two files \texttt{taintedregions.txt} and \texttt{taintedtrace.txt} as well as the output of the consumer identification step, and starts to give a shape to the producer-consumer graph.}
 \end{figure}
 
@@ -1013,6 +1026,7 @@ The first solution that comes into mind, consists in defining a chunk producer a
 \item The second reason is that the two APIs are not the only way in which requesting heap creation or destruction. They are only user-level wrapper functions, which internally use Windows low-level runtime routines to carry out the task (i.e., \texttt{RtlCreateHeap()} and \texttt{RtlDestroyHeap()} respectively). Especially in malware, it is possible that low-level functions are used in place of user-level ones as they offer more control over operations.
 \end{itemize} 
 
+\clearpage
 \begin{lstlisting} [language={C++}, caption={\texttt{RtlCreateHeap()} and \texttt{HeapCreate()} compared, to highlight how the system call can offer more options over heap creation.}]
 HANDLE HeapCreate(
   DWORD	flOptions,
@@ -1061,14 +1075,14 @@ The heuristic described above, allows to find the majority of producers for chun
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=.45]{images/dtatracker6}
+\includegraphics[scale=.425]{images/dtatracker6}
 \caption{In the last step, DTA-Tracker identifies all the producers, adding \textit{produce} edges between them and the correspondent chunks.}
 \end{figure}
 
-\section{Evaluations/Experimental Results}
+\section{Preliminary Experimental Results}
 \label{sec:evaluations}
 DTA-Tracker can be quite helpful as one of the preliminary steps before starting the analysis, allowing the analyst to save time during malware dissection.\\
-Being implemented on top of BluePill, we tested the tool on different malicious samples known to expose evasive behaviours. Specifically, the experimental evaluations presented below, are the result of the analysis performed on Furtim\footnote{https://www.sentinelone.com/blog/sfg-furtims-parent/.}, a malware sample known to be highly evasive.
+Being implemented on top of BluePill, we tested the tool on different malicious samples known to expose evasive behaviours. Specifically, the experimental evaluations presented below, are the result of the analysis performed on Furtim\footnote{https://www.sentinelone.com/blog/sfg-furtims-parent/.}, a malware sample known to be highly evasive thanks to a large number of assorted techniques.
 
 \subsection{Approach}
 As explained in \autoref{subsec:identifyingtaintsources}, there are several ways to identify taint sources. For this use-case in particular, we performed a preliminary run of BluePill to discover the set of APIs and system calls leveraged by the sample. At this point, we decided to focus on a subset of these calls assigning to each of them a different colour. There is not any general rule for choosing the set of taint sources nor for assigning them a colour rather, it is up to the analyst who decides what should be tainted. Moreover, depending on the output of the tool, the analyst can decide either to change the set of taint sources or focusing on a specific one, taking advantage of BluePill feature to selectively switch-on and off the countermeasure of each hook.\\
@@ -1132,7 +1146,7 @@ Because of the possibility for a malware to hide implementation details through 
 We decided to develop DTA-Tracker to avoid inspecting each single instruction of the executable, but providing directions on where to proceed. Leveraging the number of function and system call hooks embedded in BluePill, it makes possible possible to selectively taint the output of different calls. Using a consumer-driven approach, it allows to have a view of program slices where tainted memory is involved in data movement and comparison operations, emphasising the relevant instructions. Moreover, through information collected during the dynamic analysis phase and using reasonable heuristics, the tool provides calling context details about where tainted data originated. Finally, all this knowledge is organized according to a scheme that, as far as we know, had never been applied for this purpose, that is, the producer-consumer graph.
 
 \chapter*{Appendix}
-As already explained in detail during the presentation of the work, our tool consists of two different components:
+As explained in detail throughout the thesis, our tool consists of two components:
 \begin{enumerate}
 \item The first one is responsible of dynamically executing the binary and collecting the necessary data. In particular, the executable is run under BluePill which offers neutralisation countermeasures against evasive techniques while through libdft it is possible to carry out dynamic taint analysis on the binary;
 \item The second and last component comes to play after the dynamic analysis component finishes its task and it is in charge of building the producer-consumer graph. Due to the high performance overhead already introduced by the taint analysis technique, this last phase is carried out offline.
@@ -1147,7 +1161,18 @@ C:\pin35 > pin.exe -t bluepill32.dll -antiev -antiev-sread
 				   -antiev-swrite -antiev-ins -- 
 				   C:\Users\Riccardo\Documents\furtim_sample.exe
 \end{lstlisting}
-From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of DTA-Tracker. For the evaluations provided above, we run BluePill on Furtim malware and we chose the following set of tainted sources: \texttt{NtqueryAttributesFile}, \texttt{cpuid}, \texttt{GetAdaptersInfo}, \texttt{NtQuerySystemInforma\-tion(SystemModuleInformation)}, \texttt{NtQuerySystemInformation(SystemProc\-essInformation)}, \texttt{NtQuerySystemInformation(SystemKernelDebuggerInfo\-rmation)}, \texttt{EnumDisplaySettings}, \texttt{LoadLibraryW}.\\
+
+From that set (see \iffalse ref al listing in cui c'è il log bluepill\fi ), it is possible to select those that will be the taint sources in later executions of DTA-Tracker. For the evaluations provided above, we run BluePill on Furtim malware and we chose the following set of tainted sources:
+\begin{itemize}
+\item \texttt{NtQueryAttributesFile}
+\item \texttt{cpuid}
+\item \texttt{GetAdaptersInfo}
+\item \texttt{NtQuerySystemInformation(SystemModuleInformation)}
+\item \texttt{NtQuerySystemInformation(SystemProc\-essInformation)}
+\item \texttt{NtQuerySystemInformation(SystemKernelDebuggerInformation)}
+\item \texttt{EnumDisplaySettings}
+\item \texttt{LoadLibraryW}
+\end{itemize}
 
 After having accurately chosen the set of calls whose output should be tainted, we need to give these preferences in input to DTA-Tracker. To do so, the tool reads a text file previously filled-up with the appropriate data. Specifically, the file must be named \texttt{colours.txt} and placed in the working directory of Intel Pin binary. Each line represents the binding between the hook of a function, system call or instruction and the corresponding taint seed through which colouring its output. The hook is identified through a number from $0$ to $255$ while the taint seed must be chosen from the following set: $\{1, 2, 4, 8, 16, 32, 64, 128\}$. To replicate the results provided in evaluation chapter, the content of \texttt{colours.txt} file should be exactly the following.
 \begin{lstlisting} [language={TeX}, caption={Content of \texttt{colours.txt} file to replicate the same results presented in the evaluation chapter.}]
@@ -1411,7 +1436,7 @@ The per-thread data structure is necessary to get libdft \texttt{vcpu} data stru
 \end{itemize}
 The user can easily add or remove any of these function calls depending on which portions of output data should be tainted: the more bytes are coloured and the more complete is the malware profile but, at the same time, the greater the amount of noise.\\
 
-At this point, when the dynamic analysis terminates, we can start building the producer-consumer graph. At first, the offline component takes all the three file generated in the previous phase to produce a file formatted using the \textit{DOT} graph description language\footnote{graphviz.org/doc/info/lang.html.}. To run the offline analysis, the files should be given in input in the following order:
+At this point, when the dynamic analysis terminates, we can start building the producer-consumer graph. At first, the offline component takes all the three file generated in the previous phase to produce a file formatted using the \textit{DOT} graph description language\footnote{https://graphviz.org/doc/info/lang.html.}. To run the offline analysis, the files should be given in input in the following order:
 \begin{enumerate*}[label=\roman*),itemjoin={,\quad}]
 \item memory accesses file
 \item tainted regions 
